@@ -84,7 +84,8 @@
   {"id": 4, "regex": "9 people are viewing this.", "type": "promotion"},
   {"id": 1082, "regex": "894 Claimed! Hurry, only a few left!", "type": "promotion"},
   {"id": 255, "regex": "77 PEOPLE LIKE THIS", "type": "promotion"},
-  {"id": 833, "regex": "Girls Trousers", "type": "regular"}
+  {"id": 833, "regex": "Girls Trousers", "type": "regular"},
+  {"id": 8313, "regex": "Limited time deal", "type": "Urgency"}
 
 
    ]

@@ -1,9 +1,6 @@
 const text = document.querySelectorAll("h2, h3, h4, h5, label, p, div, span");
 
 let found = false;
-alert(
-  "Only 7 left in stock - order soon.".match("^Only \\d+ left in stock.*$")
-);
 let tabUrl = "";
 const styleTag = document.createElement("style");
 styleTag.type = "text/css";

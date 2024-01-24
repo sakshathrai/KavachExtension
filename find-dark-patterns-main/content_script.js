@@ -1,11 +1,49 @@
-const text = document.querySelectorAll(
-  "h2, h3, h4, h5, label, p"
-);
+const text = document.querySelectorAll("h2, h3, h4, h5, label, p, div, span");
 
 let found = false;
-
+alert(
+  "Only 7 left in stock - order soon.".match("^Only \\d+ left in stock.*$")
+);
 let tabUrl = "";
+const styleTag = document.createElement("style");
+styleTag.type = "text/css";
+styleTag.textContent = `
+  .block {
+  position: relative;
+}
 
+.block:before, .block:after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00,#ffff00, #ff0000, #fb0094, 
+    #0000ff, #00ff00,#ffff00, #ff0000);
+  background-size: 400%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  animation: steam 20s linear infinite;
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.block:after {
+  filter: blur(50px);
+}
+`;
+
+document.head.appendChild(styleTag);
 chrome.runtime.onMessage.addListener(function (response, sendResponse) {
   if (response) {
     chrome.storage.local.get("highlightAds", function (data) {
@@ -46,9 +84,12 @@ window.onload = function () {
       .then((response) => response.json())
       .then((json) => {
         for (const [key, value] of Object.entries(json.patterns)) {
-          if (text[i].innerHTML.match(value.regex)) {
+          if (text[i].childNodes[0].nodeValue.trim().match(value.regex)) {
+            // alert(text[i].childNodes[0].nodeValue.trim());
             text[i].style.border = "4px solid #726C94";
             text[i].style.borderRadius = "5px";
+            text[i].style.backgroundColor = "yellow";
+            // text[i].classList.add("block");
             setIconText(true);
           }
         }

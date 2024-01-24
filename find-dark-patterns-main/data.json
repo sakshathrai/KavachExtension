@@ -1,0 +1,91 @@
+{
+   "patterns":[
+      {
+         "id":1,
+         "regex":"Last.* time.* said",
+         "type":"Activity Message"
+      },
+      {
+         "id":2,
+         "regex":"During the week.* goods.* purchased",
+         "type":"Activity Message"
+      },
+      {
+         "id":3,
+         "regex":"Some.*one just bought",
+         "type":"Activity Message"
+      },
+      {
+         "id":4,
+         "regex":"Someone just purchased",
+         "type":"Activity Message"
+      },
+      {
+         "id":5,
+         "regex":"Don't want to miss out on offer.* that bring joy*",
+         "type":"Confirmshaming"
+      },
+      {
+        "id":6,
+        "regex":"Last order was made",
+        "type":"Activity Message"
+     },
+     {
+        "id": 7,
+        "regex": "Interested in.*se products right now",
+        "type":"Activity Message"
+     },
+     {
+        "id": 9,
+        "regex": "In the last [0-9]+ days you were interested in",
+        "type":"Activity Message"
+     },
+     {
+        "id": 10,
+        "regex": "Exciting news! New product released today",
+        "type":"Activity Message"
+     },
+     {
+        "id": 11,
+        "regex": "Just got the latest item in stock",
+        "type":"Activity Message"
+     },
+     {
+      "id": 12,
+      "regex": "[0-9]+h : [0-9]+m : [0-9]+s",
+      "type": "Time Pattern"
+  }  ,
+  {"id": 1012, "regex": "FLASH SALE | LIMITED TIME ONLY Shop Now", "type": "promotion"},
+  {"id": 158, "regex": "Pillowcases & Shams", "type": "regular"},
+  {"id": 108, "regex": "Write a review", "type": "regular"},
+  {"id": 1425, "regex": "To start your return, simply click on the following button and add your return details. Once the form is filled, you will receive an email with shipping instructions for how to ship the item(s) to our warehouse.", "type": "regular"},
+  {"id": 1658, "regex": "newsletter signup (privacy policy)", "type": "regular"},
+  {"id": 975, "regex": "In demand", "type": "promotion"},
+  {"id": 1469, "regex": "We cannot guarantee door to door delivery for every customer. Buyers in remote areas such as farms, islands, mining camps, small towns, or out-of-towners, etc may need to collect from their nearest freight depot.", "type": "regular"},
+  {"id": 1570, "regex": "Hurry! Only 2 left in stock", "type": "promotion"},
+  {"id": 1617, "regex": "In Stock only 3 left", "type": "promotion"},
+  {"id": 108, "regex": "International Shipping Policy", "type": "regular"},
+  {"id": 1333, "regex": "Clothes, Shoes & Accessories", "type": "regular"},
+  {"id": 1199, "regex": "Hurry! Only 2 left", "type": "promotion"},
+  {"id": 822, "regex": "Primary Arms Scopes", "type": "regular"},
+  {"id": 1264, "regex": "ONLY 8 LEFT", "type": "promotion"},
+  {"id": 1609, "regex": "MoTrail", "type": "regular"},
+  {"id": 776, "regex": "LCD Ribbon Cables", "type": "regular"},
+  {"id": 1779, "regex": "READY FOR YOUR NEXT AUTHENTIC NHL JERSEY?", "type": "regular"},
+  {"id": 1739, "regex": "OUR BEST SELLING GOGGLE", "type": "promotion"},
+  {"id": 98, "regex": "1,142 people have added to cart recently", "type": "promotion"},
+  {"id": 1438, "regex": "Limited Availability", "type": "promotion"},
+  {"id": 449, "regex": "No thanks. I don't like free things...", "type": "promotion"},
+  {"id": 1667, "regex": "read you will want to read -- Five Book Group Favourites * Sunday Post *", "type": "regular"},
+  {"id": 212, "regex": "Supply & Demand", "type": "regular"},
+  {"id": 284, "regex": "Michael in Pontiac, United States purchased a", "type": "promotion"},
+  {"id": 1381, "regex": "Bathroom Lighting", "type": "regular"},
+  {"id": 822, "regex": "Shop Optics >", "type": "regular"},
+  {"id": 4, "regex": "9 people are viewing this.", "type": "promotion"},
+  {"id": 1082, "regex": "894 Claimed! Hurry, only a few left!", "type": "promotion"},
+  {"id": 255, "regex": "77 PEOPLE LIKE THIS", "type": "promotion"},
+  {"id": 833, "regex": "Girls Trousers", "type": "regular"}
+
+
+   ]
+}

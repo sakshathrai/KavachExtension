@@ -1,0 +1,10 @@
+{
+  "patterns": [
+    {
+      "id": "1264",
+      "regex": "Limited time deal.",
+      "label": "1",
+      "type": "Scarcity"
+    }
+  ]
+}

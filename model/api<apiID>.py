@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from concurrent.futures import ThreadPoolExecutor
-from transformers import BertTokenizer, BertForSequenceClassification
+from transformers import BertTokenizer, BertForSequenceClassification 
 import torch
 
 app = Flask(__name__)

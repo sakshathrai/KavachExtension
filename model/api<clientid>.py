@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify
-from concurrent.futures import ThreadPoolExecutor
+from flask import Flask, request, jsonifyfrom concurrent.futures import ThreadPoolExecutor
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
 

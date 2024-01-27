@@ -2,7 +2,13 @@
   "patterns": [
     {
       "id": "1264",
-      "regex": "Only 1 left in stock.",
+      "regex": "Only 9 left in stock.",
+      "label": "1",
+      "type": "Scarcity"
+    },
+    {
+      "id": "1264",
+      "regex": "^([01]\\d|2[0-3])h : ([0-5]\\d)m : ([0-5]\\d)s$",
       "label": "1",
       "type": "Scarcity"
     }

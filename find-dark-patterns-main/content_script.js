@@ -40,6 +40,8 @@ styleTag.textContent = `
 }
 `;
 
+chrome.runtime.sendMessage({ action: "openPopup" });
+
 document.head.appendChild(styleTag);
 chrome.runtime.onMessage.addListener(function (response, sendResponse) {
   if (response) {
@@ -81,7 +83,9 @@ window.onload = function () {
       .then((response) => response.json())
       .then((json) => {
         for (const [key, value] of Object.entries(json.patterns)) {
-          if (text[i].childNodes[0].nodeValue.trim().match(value.regex)) {
+          const nodeValue = text[i]?.firstChild?.nodeValue;
+          const matched = nodeValue?.trim()?.match(value.regex);
+          if (matched) {
             // alert(text[i].childNodes[0].nodeValue.trim());
             text[i].style.border = "4px solid #726C94";
             text[i].style.borderRadius = "5px";

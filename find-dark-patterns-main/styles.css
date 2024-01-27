@@ -1,12 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
 button {
   height: 30px;
   width: 180px;
+  font-family: 'Poppins', sans-serif;
   outline: none;
-  margin: 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   align-items: center;
-  background-color: #F1F1F1;
+  background-color: #000;
+  color:#E7EAEE;
+  margin: 10%;
+}
+
+
+.popupWrapper > *{
+  margin: 0;
+  padding: 5px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .centerWrapper {
@@ -24,6 +34,7 @@ button {
 
 button:hover {
   background-color: #eceaf7;
+  color: #000;
   cursor: pointer;
 }
 
@@ -70,6 +81,8 @@ textarea {
   background-color: white;
   border: none;
   height: 10rem;
+  width: 100%;
+  color:#ff0000
 }
 
 .green {
@@ -84,7 +97,6 @@ textarea {
 .plugin {
   width: 500px;
   padding: 24px;
-  font-family: 'Roboto', sans-serif;
 }
 .wrapper {
   margin-top: 64px;

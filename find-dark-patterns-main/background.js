@@ -1,4 +1,5 @@
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+  console.log("Hello2");
   if (msg.action === "updateIcon") {
     if (msg.value == true) {
       chrome.action.setBadgeText({ text: "!" });
@@ -9,6 +10,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
 });
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  console.log("Hello1");
   if (
     changeInfo.status == "complete" &&
     tab.status == "complete" &&
@@ -24,8 +26,16 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
+  console.log("Hello3");
   if (area === "sync" && changes.options?.newValue) {
     const adsMode = Boolean(changes.options.newValue.ads);
     chrome.storage.local.set({ highlightAds: adsMode });
+  }
+});
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.action === "openPopup") {
+    chrome.browserAction.openPopup();
+    console.log(9);
   }
 });

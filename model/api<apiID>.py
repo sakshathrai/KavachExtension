@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from concurrent.futures import ThreadPoolExecutor
 from transformers import BertTokenizer, BertForSequenceClassification 
 import torch
-
+ 
 app = Flask(__name__)
 model = BertForSequenceClassification.from_pretrained("bert-base-uncased")
 model.load_state_dict(torch.load('bert-base-uncased_0.pth'))

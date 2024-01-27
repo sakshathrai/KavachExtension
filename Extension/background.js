@@ -32,10 +32,3 @@ chrome.storage.onChanged.addListener((changes, area) => {
     chrome.storage.local.set({ highlightAds: adsMode });
   }
 });
-
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  if (message.action === "openPopup") {
-    chrome.browserAction.openPopup();
-    console.log(9);
-  }
-});

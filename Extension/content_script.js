@@ -1,6 +1,7 @@
 const text = document.querySelectorAll("h2, h3, h4, h5, label, p, div, span");
 
 let found = false;
+
 let tabUrl = "";
 const styleTag = document.createElement("style");
 styleTag.type = "text/css";

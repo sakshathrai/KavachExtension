@@ -1,12 +1,12 @@
 {
-  "name": "Find Dark Patterns",
+  "name": "Kavach",
   "description": "Spot and identify dark patterns in webpages",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
-	"permissions": ["storage", "activeTab", "scripting", "tabs", "storage", "browser_action" ],
+	"permissions": ["storage", "activeTab", "scripting", "tabs", "storage"],
     "action": {
       "default_popup": "popup.html",
       "default_icon": 

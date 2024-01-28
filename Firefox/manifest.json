@@ -1,0 +1,44 @@
+{
+  "name": "Kavach",
+  "description": "Spot and identify dark patterns in webpages",
+  "version": "1.0",
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/logo_16.png",
+      "32": "/images/logo_30.png",
+      "48": "/images/logo_48.png",
+      "128": "/images/logo_128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/logo_16.png",
+    "32": "/images/logo_30.png",
+    "48": "/images/logo_48.png",
+    "128": "/images/logo_128.png"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true,
+      "js": ["content_script.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["data.json"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

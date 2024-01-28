@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
-button {
+#patternsButton {
   height: 30px;
   width: 180px;
   font-family: 'Poppins', sans-serif;
@@ -9,13 +9,45 @@ button {
   align-items: center;
   background-color: #000;
   color:#E7EAEE;
-  margin: 10%;
+  margin: 5%;
 }
 
+#saveSet > button {
+  height: 25px;
+  width: 90px;
+  margin: 0 5px;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  align-items: center;
+  background-color: #000;
+  color:#E7EAEE;
+}
 
+#setting{
+  outline: none;
+  border: none;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  width: 60px;
+}
+
+#setting:hover{
+  background-color: grey;
+  color: #fff;
+}
+
+#settingWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 140%;
+  justify-content: center;
+  align-items: center;
+}
 .popupWrapper > *{
   margin: 0;
-  padding: 5px;
+  padding: 0px;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -28,19 +60,26 @@ button {
   border: 2px solid #F1F1F1;
   border-radius: 5px;
   padding: 5px;
-  width: 19rem;
+  width: 95%;
   margin-bottom: 1rem;
 }
 
-button:hover {
+#settingWrapper > select {
+  margin: 10px;
+  border-radius: 10px;
+  padding: 1px 5px;
+  font-size: 15px;
+}
+
+#patternsButton:hover, #saveSet > button:hover{
   background-color: #eceaf7;
   color: #000;
   cursor: pointer;
 }
 
-button:active {
+#patternsButton:active, #setting:active, #saveSet > button:active {
   box-shadow: none;
-  transform: translateY(4px);
+  transform: translateY(3px);
 }
 
 div {
@@ -91,7 +130,7 @@ textarea {
 }
 
 .popupWrapper {
-  width: 20rem;
+  width: 18rem;
 }
 
 .plugin {
@@ -301,4 +340,11 @@ font-size: 12px;
 line-height: 24px;
 text-align: center;
 color: #B0C3D5;
+}
+
+img#logo {
+  height: 20px;
+  display: inline;
+  margin-bottom: -2px;
+  margin-left: 3px;
 }

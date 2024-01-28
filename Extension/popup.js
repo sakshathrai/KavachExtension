@@ -2,8 +2,8 @@ var query = { active: true, currentWindow: true };
 
 document.addEventListener("DOMContentLoaded", function () {
   var patternsButton = document.getElementById("patternsButton");
-  chrome.storage.local.set({ patternsNumb: undefined }, function () {});
-  chrome.storage.local.set({ types: undefined }, function () {});
+  chrome.storage.local.set({ patternsNumb: undefined }, function () { });
+  chrome.storage.local.set({ types: undefined }, function () { });
   document.getElementById("patternsFound").value = null;
   patternsButton.addEventListener(
     "click",
@@ -44,11 +44,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
               chrome.storage.local.set(
                 { patternsNumb: patternsWereFound },
-                function () {}
+                function () { }
               );
               chrome.storage.local.set(
                 { patternsTypes: JSON.stringify(types) },
-                function () {}
+                function () { }
               );
             });
         },
@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         chrome.storage.local.get("patternsNumb", function (data) {
           if (data.patternsNumb) {
             if (Number(data.patternsNumb) > 0) {
+              document.getElementById("content").innerHTML = `<div id="patternsFound"></div><div id="patternsTypes"></div>`
               document.getElementById("patternsFound").innerHTML = `<div class="totalWrapper"><div class="inline-block-child totalText"><b>Total</b> dark patterns found:</div><div class="inline-block-child"><input class="error" id="another" value=${data.patternsNumb} disabled/></div></div>`
               chrome.storage.local.get("patternsTypes", function (data) {
                 if (data.patternsTypes) {
@@ -80,6 +81,21 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     false
   );
+  var settingsButton = document.getElementById("setting");
+  settingsButton.addEventListener(
+    "click",
+    async () => {
+      let [tab] = await chrome.tabs.query({
+        active: true,
+        currentWindow: true,
+      });
+      setTimeout(function () {
+
+        document.getElementById("content").innerHTML = '<div>Pattern detection mode:</div><div id="settingWrapper"></div>';
+        document.getElementById("settingWrapper").innerHTML = '<select><option>High Sensitivity</option><option>Moderate Sensitivity</option><option>Low Sensitivity</option></select><div id="saveSet"></div';
+        document.getElementById("saveSet").innerHTML = '<button>Save</button><button>Apply</button>';
+      });
+    });
 });
 
 function setIconText(value) {
@@ -94,12 +110,12 @@ function setIconText(value) {
 document.addEventListener('DOMContentLoaded', function () {
   var links = document.getElementsByTagName("a");
   for (var i = 0; i < links.length; i++) {
-      (function () {
-          var ln = links[i];
-          var location = ln.href;
-          ln.onclick = function () {
-              chrome.tabs.create({active: true, url: location});
-          };
-      })();
+    (function () {
+      var ln = links[i];
+      var location = ln.href;
+      ln.onclick = function () {
+        chrome.tabs.create({ active: true, url: location });
+      };
+    })();
   }
 });

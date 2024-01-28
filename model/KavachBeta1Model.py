@@ -34,10 +34,15 @@ def predict():
         probs = torch.nn.functional.softmax(outputs.logits, dim=1)
         pred_labels = probs.argmax(dim=1)
 
-        filtered_predictions = [{'unique_id': item['unique_id'],
-                                 'predicted_label': int(pred),
-                                 'confidence_score': float(prob)
-                                } for item, pred, prob in zip(test_data, pred_labels.tolist(), probs[:, 1].tolist()) if pred in category_list]
+        # Assuming your model is designed for multiclass classification
+        filtered_predictions = []
+        for idx, (item, pred) in enumerate(zip(test_data, pred_labels.tolist())):
+            if pred in category_list:
+                score = round(float(probs[idx, pred].item()), 4)
+                filtered_predictions.append({'_id': item['_id'],
+                                             'label': int(pred),
+                                             'score': score
+                                            })
 
         if not filtered_predictions:
             return jsonify({"error": "No items found for the specified categories.", "status": "failed"})
@@ -51,4 +56,4 @@ def predict():
         return jsonify({"error": str(e), "status": "failed"})
 
 if __name__ == '__main__':
-    app.run(debug=True,port=3042)
+    app.run(debug=True, port=3042)

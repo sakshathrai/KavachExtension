@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var patternsButton = document.getElementById("patternsButton");
   chrome.storage.local.set({ patternsNumb: undefined }, function () { });
   chrome.storage.local.set({ types: undefined }, function () { });
-  document.getElementById("patternsFound").value = null;
   patternsButton.addEventListener(
     "click",
     async () => {

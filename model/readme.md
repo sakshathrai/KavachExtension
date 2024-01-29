@@ -16,22 +16,23 @@ pip install -r requirements.txt
 ```
 ### 3. Run the API
 
-1. Open the `api.py` file in your preferred code editor (e.g., Visual Studio Code).
+## 1. Open the `api.py` file in your preferred code editor (e.g., Visual Studio Code).
 
-2. Ensure that the necessary configurations in `api.py` match your setup.
+## 2. Ensure that the necessary configurations in `api.py` match your setup.
 
-3. Make sure that the "Kavach Beta 1 Model" is present in the specified location.
+## 3. Make sure that the "Kavach Beta 1 Model" is present in the specified location.
 
-4. Run the following command in your terminal:
+## 4. Run the following command in your terminal:
 
     ```bash
     uvicorn api:app --reload
     ```
 
    This will start the FastAPI server, and you can access the API at [http://127.0.0.1:8000](http://127.0.0.1:8000).
+   
+### 4. Predicting Dark Patterns API - Demo
+
+To view a working demo, please visit the [Google Drive folder](https://drive.google.com/file/d/1C3ite1ccHcss9Qbj1SWMIIuTqAshWfjU/view?usp=drive_link).
 
 
-
-
-![Alt text](./Api Demo.png)
 

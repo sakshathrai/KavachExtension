@@ -15,14 +15,23 @@ Make sure you have Python installed. Then, install the required dependencies usi
 pip install -r requirements.txt
 ```
 ### 3. Run the API
- Open the api.py file in your preferred code editor (e.g., Visual Studio Code) and ensure that the necessary configurations match your setup. Then, run the following command in your terminal:
 
-```bash
-uvicorn api:app --reload
-```
+1. Open the `api.py` file in your preferred code editor (e.g., Visual Studio Code).
 
-This will start the FastAPI server, and you can access the API at http://127.0.0.1:8000.
+2. Ensure that the necessary configurations in `api.py` match your setup.
+
+3. Make sure that the "Kavach Beta 1 Model" is present in the specified location.
+
+4. Run the following command in your terminal:
+
+    ```bash
+    uvicorn api:app --reload
+    ```
+
+   This will start the FastAPI server, and you can access the API at [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 
-![Alt text](path/to/your/image.png)
+
+
+![Alt text](./Api Demo.png)
 

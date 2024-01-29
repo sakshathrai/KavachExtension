@@ -32,7 +32,7 @@ pip install -r requirements.txt
    
 ### 4. Predicting Dark Patterns API - Demo
 
-To view a working demo, please visit the [Google Drive folder](https://drive.google.com/file/d/1C3ite1ccHcss9Qbj1SWMIIuTqAshWfjU/view?usp=drive_link).
+To view a working demo, please visit the [DEMO VIDEO](https://drive.google.com/file/d/1C3ite1ccHcss9Qbj1SWMIIuTqAshWfjU/view?usp=drive_link).
 
 
 

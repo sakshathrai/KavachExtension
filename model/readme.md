@@ -16,13 +16,13 @@ pip install -r requirements.txt
 ```
 ### 3. Run the API
 
-## 1. Open the `api.py` file in your preferred code editor (e.g., Visual Studio Code).
+#### 1. Open the `api.py` file in your preferred code editor (e.g., Visual Studio Code).
 
-## 2. Ensure that the necessary configurations in `api.py` match your setup.
+#### 2. Ensure that the necessary configurations in `api.py` match your setup.
 
-## 3. Make sure that the "Kavach Beta 1 Model" is present in the specified location.
+#### 3. Make sure that the "Kavach Beta 1 Model" is present in the specified location.
 
-## 4. Run the following command in your terminal:
+#### 4. Run the following command in your terminal:
 
     ```bash
     uvicorn api:app --reload

@@ -1,43 +1,28 @@
-# Model Download and Installation
+# Predicting Dark Patterns API
 
-## Use this to download the model:
+## Overview
 
-After downloading this repository, follow the steps below to set up and use the model.
+This folder contains an api.py built using FastAPI for predicting dark patterns in text. Dark patterns are deceptive design techniques used in websites and applications to manipulate users into taking actions they may not want to perform and the model is based on machine learning model using BERT for sequence classification.
 
-1. Download the model from the provided Google Drive link: [Model Download](https://drive.google.com/drive/folders/1pytU1CD_CnNY_jg_kh8xQWaQRxV0FVjv?usp=sharing)
+## Installation
 
-## Dependencies Installation
+### 1. Open this open on your Code Editor
 
-Make sure you have the following dependencies installed before running the code:
+### 2. Install Dependencies
+Make sure you have Python installed. Then, install the required dependencies using the following commands:
 
-- Install PyTorch:
-  ```bash
-  pip install torch
-  ```
+```bash
+pip install -r requirements.txt
+```
+### 3. Run the API
+ Open the api.py file in your preferred code editor (e.g., Visual Studio Code) and ensure that the necessary configurations match your setup. Then, run the following command in your terminal:
 
-- Install Transformers library:
-  ```bash
-  pip install transformers
-  ```
+```bash
+uvicorn api:app --reload
+```
 
-- Install Flask:
-  ```bash
-  pip install flask
-  ```
+This will start the FastAPI server, and you can access the API at http://127.0.0.1:8000.
 
-## Running the Code
 
-Once you have downloaded the model and installed the dependencies, follow these steps to run the code:
+![Alt text](path/to/your/image.png)
 
-1. Open the `ser.py` file.
-
-2. Run the code in your preferred Python environment.
-
-3. After successfully running the code, you can check the API using a tool like Postman or any API tester.
-
-4. Make a POST request with the following JSON body:
-   ```json
-   {"text": "limited stocks"}
-   ```
-
-5. Review the response from the API to see the model's output.

@@ -1,4 +1,4 @@
-# Predicting Dark Patterns API
+# Predicting Dark Patterns
 
 ## Overview
 

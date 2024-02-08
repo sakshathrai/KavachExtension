@@ -1,6 +1,6 @@
-pip install fastapi
-pip install uvicorn
-pip install transformers
-pip install torch
-pip install python-multipart
-pip install pydantic
+fastapi
+uvicorn
+transformers
+torch
+python-multipart
+pydantic

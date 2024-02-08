@@ -107,6 +107,10 @@ function handleModelResponse(domElement, label, score) {
 
 function getChunckOfArray(validArrayOfContent, chunkSize) {
   const result = [];
+  if (validArrayOfContent.length <= 50) {
+    result.push(validArrayOfContent);
+    return result;
+  }
   for (let i = 0; i < validArrayOfContent.length; i += chunkSize) {
     result.push(validArrayOfContent.slice(i, i + chunkSize));
   }

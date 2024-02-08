@@ -1,43 +1,76 @@
-from flask import Flask, request, jsonify
-from transformers import BertTokenizer, BertForSequenceClassification
+from fastapi import FastAPI, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from transformers import BertForSequenceClassification, BertTokenizerFast
 import torch
+from pydantic import BaseModel
 
-app = Flask(__name__)
-model = BertForSequenceClassification.from_pretrained("bert-base-uncased")
-model.load_state_dict(torch.load('bert-base-uncased_3.pth'))
-tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+app = FastAPI()
 
-@app.route('/predict', methods=['POST'])
-def predict():
+origins = ["*"]  # Adjust this based on your CORS requirements
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class PredictionInput(BaseModel):
+    test: list
+    category: list
+
+model_path = "Kavach_Beta1Model"
+model = BertForSequenceClassification.from_pretrained(model_path)
+tokenizer = BertTokenizerFast.from_pretrained(model_path)
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+model.to(device)
+
+def get_model():
+    return model
+
+def get_tokenizer():
+    return tokenizer
+
+def get_device():
+    return device
+
+@app.post('/predict')
+async def predict(data: PredictionInput, model: BertForSequenceClassification = Depends(get_model),
+                  tokenizer: BertTokenizerFast = Depends(get_tokenizer),
+                  device: torch.device = Depends(get_device)):
     try:
-        input_text = request.json['text']
-        if "dark pattern" in input_text.lower():
-            result = [
-                [
-                    {"label": "Not Dark Pattern", "score": 0.01},
-                    {"label": "Dark Pattern", "score": 0.99}
-                ]
-            ]
-        else:
-            input_ids = tokenizer(input_text, return_tensors="pt")["input_ids"]
-            with torch.no_grad():
-                outputs = model(input_ids)
+        if not data.test or not data.category:
+            raise HTTPException(status_code=400, detail="Input must contain 'test' and 'category' keys.")
+        
+        if any(category not in range(8) for category in data.category):
+            raise HTTPException(status_code=400, detail="Invalid category number. Please provide numbers in the range 0 to 7.")
 
-            probabilities = torch.nn.functional.softmax(outputs.logits, dim=-1)
-            probabilities_list = probabilities.cpu().numpy().tolist()
+        texts = [item['text'] for item in data.test]
+        encodings = tokenizer(texts, truncation=True, padding=True, return_tensors="pt")
+        inputs = {key: val.to(device) for key, val in encodings.items()}
 
-            result = [
-                [
-                    {"label": "Not Dark Pattern", "score": probabilities_list[0][0]},
-                    {"label": "Dark Pattern", "score": probabilities_list[0][1]}
-                ]
-            ]
+        outputs = model(**inputs)
 
-        return jsonify(result)
+        probs = torch.nn.functional.softmax(outputs.logits, dim=1)
+        pred_labels = probs.argmax(dim=1)
+
+        filtered_predictions = []
+        for idx, (item, pred) in enumerate(zip(data.test, pred_labels.tolist())):
+            if pred in data.category:
+                score = round(float(probs[idx, pred].item()), 4)
+                filtered_predictions.append({'_id': item['_id'],
+                                             'label': int(pred),
+                                             'score': score
+                                             })
+
+        if not filtered_predictions:
+            raise HTTPException(status_code=400, detail="No items found for the specified categories.")
+
+        return filtered_predictions
+
+    except HTTPException as he:
+        raise he
 
     except Exception as e:
-        return jsonify({"error": str(e)})
-
-if __name__ == '__main__':
-    port_number = 5001
-    app.run(debug=True, port=port_number)
+        raise HTTPException(status_code=500, detail=str(e))

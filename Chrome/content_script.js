@@ -1,5 +1,3 @@
-const text = document.querySelectorAll("h2, h3, h4, h5, label, p, div, span");
-
 let found = false;
 const DP_CATAGORY = [
   "Urgency",
@@ -33,13 +31,26 @@ chrome.runtime.onMessage.addListener(function (response, sendResponse) {
         });
       }
     });
-    setIconText(false);
   }
 });
 
 window.onload = async function () {
+  const style = document.createElement("style");
+  style.textContent = `
+
+  .DP-POP-UP{
+    display: block !important;
+  }
+
+  .DP-POP-UP.hide-popover{
+    visibility: hidden !important;
+    display: none !important;
+  }
+
+  `;
   initModelRequest();
-  document.onchange = initModelRequest;
+  document.head.appendChild(style);
+  document.onchange = () => initModelRequest();
 };
 
 async function initModelRequest() {
@@ -48,10 +59,10 @@ async function initModelRequest() {
   chrome.storage.local.set({ inProgress: "true" }, function () {});
 
   // get all the DOM content one by one and send for analyzing text
-  const spanContents = document.querySelectorAll("span");
-  await handleArrayRequest(spanContents, "span");
   const divContents = document.querySelectorAll("div");
   await handleArrayRequest(divContents, "div");
+  const spanContents = document.querySelectorAll("span");
+  await handleArrayRequest(spanContents, "span");
   const pContents = document.querySelectorAll("p");
   await handleArrayRequest(pContents, "p");
   const labelContents = document.querySelectorAll("label");
@@ -91,7 +102,7 @@ function getValidArrayOfContent(ArrayOfElement) {
 }
 
 // handeling response for each request
-function handleModelResponse(domElement, label, score) {
+function handleModelResponse(domElement, label, score, type, _id) {
   if (score < 0.9 || label === 1 || !domElement) return;
   DP_COUNT++;
   chrome.storage.local.set({ DP_COUNT }, function () {}); // updating Dark Pattern COUNT
@@ -100,9 +111,44 @@ function handleModelResponse(domElement, label, score) {
     count: DP_COUNT,
   });
   // alert(domElement.textContent);
+
+  let domElementid = domElement.id;
+  if (!domElementid) {
+    domElement.id = `ANCHOR-DP-${type}-${_id}`;
+    domElementid = domElement.id;
+  }
   domElement.style.border = "4px solid #726C94";
   domElement.style.borderRadius = "5px";
   domElement.style.backgroundColor = "yellow";
+
+  const domElementBound = domElement.getBoundingClientRect();
+
+  const popUpDiv = document.createElement("div");
+  popUpDiv.id = `${domElementid}-pop`;
+  popUpDiv.classList.add("hide-popover");
+  popUpDiv.classList.add("DP-POP-UP");
+
+  popUpDiv.style.position = "fixed";
+  popUpDiv.style.top = domElementBound.top + window.scrollY + "px";
+  popUpDiv.style.left = domElementBound.right + window.scrollX + "px";
+  popUpDiv.style.display = "none";
+  popUpDiv.style.backgroundColor = "#000";
+  popUpDiv.style.color = "#fff";
+  document.body.appendChild(popUpDiv);
+
+  const cancelDiv = document.createElement("div");
+  cancelDiv.textContent = "X";
+  cancelDiv.style.backgroundColor = "red";
+
+  popUpDiv.innerHTML += `<div style="display:flex;flex-direction:column;"><div>option 1</div><div>option 2</div></div> `;
+
+  domElement.addEventListener("mouseover", toggleOptions);
+  cancelDiv.addEventListener("click", toggleOptions);
+  popUpDiv.appendChild(cancelDiv);
+
+  function toggleOptions(e) {
+    popUpDiv.classList.toggle("hide-popover");
+  }
 }
 
 function getChunckOfArray(validArrayOfContent, chunkSize) {
@@ -144,15 +190,10 @@ async function handleArrayRequest(ArrayOfElement, type) {
       handleModelResponse(
         ArrayOfElement[parseInt(modelResults[i]._id)],
         modelResults[i].label,
-        modelResults[i].score
+        modelResults[i].score,
+        type,
+        modelResults[i]._id
       );
     }
   }
-}
-
-function setIconText(value) {
-  chrome.runtime.sendMessage({
-    action: "updateIcon",
-    value: value,
-  });
 }

@@ -1,13 +1,3 @@
-chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-  if (msg.action === "updateIcon") {
-    if (msg.value == true) {
-      chrome.action.setBadgeText({ text: "!" });
-    } else {
-      chrome.action.setBadgeText({ text: "" });
-    }
-  }
-});
-
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (
     changeInfo.status == "complete" &&

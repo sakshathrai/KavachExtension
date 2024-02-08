@@ -11,3 +11,4 @@ optionsForm.ads.addEventListener("change", (event) => {
   options.ads = event.target.checked;
   chrome.storage.sync.set({ options });
 });
+

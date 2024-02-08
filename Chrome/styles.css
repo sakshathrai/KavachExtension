@@ -357,3 +357,15 @@ img#logo {
 #dp-count-id b{
   color: red;
 }
+
+.DP-POP-UP.hide-popover{
+  visibility: hidden;
+  display: none !important;
+}
+
+.DP-POP-UP{
+    inset: unset !important;
+    bottom: anchor(top) !important;
+    left: anchor(center) !important;
+    translate: -50% !important;
+}

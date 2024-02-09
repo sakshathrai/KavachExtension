@@ -5,6 +5,7 @@ import { getAutoScanPermit } from "../../helper/storage";
 import ProgressBar from "../components/progress";
 import Theme from "../components/theme";
 import Navbar from "../components/navbar";
+import Button from "../components/Button";
 export const Counter = () => {
   const [count, setCount] = useState(0);
   const [analysis, setAnalysis] = useState("Kavach is Being preparing...");
@@ -112,6 +113,7 @@ export const Counter = () => {
       </div>
       <Theme/>
 <Navbar/>
+<Button/>
 
     </div>
   );

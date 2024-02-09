@@ -29,7 +29,9 @@ export async function init() {
 }
 
 function handleDpCount(DP_COUNT) {
-  if (DP_COUNT >= 0 && DP_COUNT < 100) {
+  if (DP_COUNT === 0) {
+    action.setBadgeText({ text: "" });
+  } else if (DP_COUNT > 0 && DP_COUNT < 100) {
     action.setBadgeText({ text: String(DP_COUNT) });
   } else if (DP_COUNT > 100) {
     action.setBadgeText({ text: "99+" });

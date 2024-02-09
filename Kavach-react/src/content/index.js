@@ -1,5 +1,10 @@
 import { runtime, storage, action } from "webextension-polyfill";
-import { getAutoScanPermit, setAutoScanPermit } from "../helper/storage";
+import {
+  getAutoScanPermit,
+  getDpCount,
+  setAutoScanPermit,
+  setDpCount,
+} from "../helper/storage";
 let DP_COUNT = 0;
 
 window.onload = () => {
@@ -57,7 +62,7 @@ async function handleStartScan() {
   }
 }
 async function initModelRequest() {
-  DP_COUNT = 0; // initialize the DP count
+  DP_COUNT = await getDpCount(); // initialize the DP count
 
   runtime.sendMessage({
     to: "popup",
@@ -119,7 +124,7 @@ function getValidArrayOfContent(ArrayOfElement) {
 function handleModelResponse(domElement, label, score, type, _id) {
   if (score < 0.9 || label === 1 || !domElement) return;
   DP_COUNT++;
-  storage.local.set({ DP_COUNT }); // updating Dark Pattern COUNT
+  setDpCount(DP_COUNT); // updating Dark Pattern COUNT
 
   runtime.sendMessage({
     to: "popup",

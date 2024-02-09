@@ -25,7 +25,11 @@ export async function init() {
       if (tabId) {
         return incrementStoredValue(tabId.toString());
       }
-    } else if (message.action === "increment-count") {
+    }
+  });
+
+  runtime.onMessage.addListener(async (message) => {
+    if (message.action === "increment-count") {
       const DP_COUNT = message.count;
       if (DP_COUNT > 0 && DP_COUNT < 100) {
         action.setBadgeText({ text: DP_COUNT });

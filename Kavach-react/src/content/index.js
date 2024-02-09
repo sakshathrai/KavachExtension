@@ -1,4 +1,4 @@
-import { runtime, storage, tabs } from "webextension-polyfill";
+import { runtime, storage, action } from "webextension-polyfill";
 
 let DP_COUNT = 0;
 
@@ -94,6 +94,7 @@ function handleModelResponse(domElement, label, score, type, _id) {
   if (score < 0.9 || label === 1 || !domElement) return;
   DP_COUNT++;
   storage.local.set({ DP_COUNT }); // updating Dark Pattern COUNT
+
   runtime.sendMessage({
     to: "popup",
     action: "increment-count",

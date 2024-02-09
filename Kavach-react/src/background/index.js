@@ -1,4 +1,4 @@
-import { runtime, storage, tabs } from "webextension-polyfill";
+import { runtime, storage, tabs, action } from "webextension-polyfill";
 
 async function getCurrentTab() {
   const list = await tabs.query({ active: true });
@@ -24,6 +24,13 @@ export async function init() {
 
       if (tabId) {
         return incrementStoredValue(tabId.toString());
+      }
+    } else if (message.action === "increment-count") {
+      const DP_COUNT = message.count;
+      if (DP_COUNT > 0 && DP_COUNT < 100) {
+        action.setBadgeText({ text: DP_COUNT });
+      } else if (DP_COUNT > 100) {
+        action.setBadgeText({ text: "99+" });
       }
     }
   });

@@ -5,6 +5,7 @@ import { getCurrentTab } from "../../helper/tabs";
 export const Counter = () => {
   const [count, setCount] = useState(0);
   const [analysis, setAnalysis] = useState("Kavach is Being preparing...");
+
   useEffect(() => {
     const readBackgroundMessage = async () => {
       const tab = await getCurrentTab();

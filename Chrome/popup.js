@@ -89,6 +89,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     countDiv.innerHTML = `<b>${msg.count}</b> DP found So far!!`;
   }
 });
+
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
   if (msg.action === "scanningComplete") {
     chrome.storage.local.get("DP_COUNT", function (DPDATA) {

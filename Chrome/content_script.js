@@ -140,7 +140,7 @@ function handleModelResponse(domElement, label, score, type, _id) {
   cancelDiv.textContent = "X";
   cancelDiv.style.backgroundColor = "red";
 
-  popUpDiv.innerHTML += `<div style="display:flex;flex-direction:column;"><div>option 1</div><div>option 2</div></div> `;
+  popUpDiv.innerHTML = `<div style="display:flex;flex-direction:column;"><div>option 1</div><div>option 2</div></div> `;
 
   domElement.addEventListener("mouseover", toggleOptions);
   cancelDiv.addEventListener("click", toggleOptions);

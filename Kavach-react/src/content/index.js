@@ -1,42 +1,61 @@
 import { runtime, storage, action } from "webextension-polyfill";
-
+import { getAutoScanPermit, setAutoScanPermit } from "../helper/storage";
 let DP_COUNT = 0;
 
-function initContentScript() {
-  console.log("[Content script] Kavach");
-  runtime.onMessage.addListener(async (message) => {
-    if (message.from === "popup") {
-      console.log("recieved");
-      // document.onload = async () => {
-      console.log("Kavach is Analyzing the page");
-      const style = document.createElement("style");
-      style.textContent = `
-  
-            .DP-POP-UP{
-              display: block !important;
-            }
-  
-            .DP-POP-UP.hide-popover{
-              visibility: hidden !important;
-              display: none !important;
-            }
-  
-            `;
-      document.head.appendChild(style);
-      initModelRequest();
-      // document.onchange = () => initModelRequest();
-      // };
-    }
-  });
-}
-
-initContentScript();
+window.onload = () => {
+  handleStartScan();
+};
 runtime.onMessage.addListener(async (message) => {
-  if (message.from === "background" && message.action === "tabActivated") {
-    initContentScript();
+  if (message.to === "content") {
+    switch (message.action) {
+      case "tabActivated": {
+        DP_COUNT = 0;
+        break;
+      }
+
+      case "start-scanning": {
+        initModelRequest();
+        break;
+      }
+
+      case "auto-scan-permit": {
+        setAutoScanPermit(message.permit);
+        if (message.permit === "not-allowed") {
+          document.removeEventListener("change", initModelRequest);
+        }
+        break;
+      }
+
+      default: {
+        console.log("Unknown Message");
+      }
+    }
   }
 });
 
+function updateStyle() {
+  const style = document.createElement("style");
+  style.textContent = `
+.DP-POP-UP{
+    display: block !important;
+}
+.DP-POP-UP.hide-popover{
+  visibility: hidden !important;
+  display: none !important;
+}
+`;
+  document.head.appendChild(style);
+}
+
+async function handleStartScan() {
+  updateStyle();
+  const autoScanPermit = await getAutoScanPermit();
+  console.log(autoScanPermit);
+  if (autoScanPermit === "Allow") {
+    initModelRequest();
+    document.addEventListener("change", initModelRequest);
+  }
+}
 async function initModelRequest() {
   DP_COUNT = 0; // initialize the DP count
 
@@ -45,6 +64,13 @@ async function initModelRequest() {
     action: "Scanning",
     count: DP_COUNT,
   });
+
+  runtime.sendMessage({
+    to: "background",
+    action: "updateBadgeText",
+    count: DP_COUNT,
+  });
+
   // get all the DOM content one by one and send for analyzing text
   const divContents = document.querySelectorAll("div");
   await handleArrayRequest(divContents, "div");
@@ -100,7 +126,12 @@ function handleModelResponse(domElement, label, score, type, _id) {
     action: "increment-count",
     count: DP_COUNT,
   });
-  // alert(domElement.textContent);
+
+  runtime.sendMessage({
+    to: "background",
+    action: "updateBadgeText",
+    count: DP_COUNT,
+  });
 
   let domElementid = domElement.id;
   if (!domElementid) {
@@ -188,8 +219,5 @@ async function handleArrayRequest(ArrayOfElement, type) {
   }
 }
 
-// runtime.onInstalled.addListener(() => {
-//   init().then(() => {
-//     console.log("[content] loaded ");
-//   });
-// });
+// initContentScript();
+console.log("[content] loaded ");

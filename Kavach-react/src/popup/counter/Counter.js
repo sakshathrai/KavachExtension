@@ -63,8 +63,8 @@ export const Counter = () => {
               console.log("msg snt");
               tabs.sendMessage(tabId, {
                 from: "popup",
-                to: "background",
-                action: "click",
+                to: "content",
+                action: "start-scanning",
               });
             }
           }}

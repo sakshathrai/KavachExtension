@@ -1,4 +1,4 @@
-import { runtime, storage, action } from "webextension-polyfill";
+import { runtime } from "webextension-polyfill";
 import {
   getAutoScanPermit,
   getDpCount,
@@ -9,9 +9,12 @@ let DP_COUNT = 0;
 
 window.onload = () => {
   handleStartScan();
+  document.addEventListener("change", handleStartScan);
 };
 runtime.onMessage.addListener(async (message) => {
   if (message.to === "content") {
+    console.log("reached-au");
+
     switch (message.action) {
       case "tabActivated": {
         DP_COUNT = 0;
@@ -19,15 +22,14 @@ runtime.onMessage.addListener(async (message) => {
       }
 
       case "start-scanning": {
+        console.log("reached ss");
         initModelRequest();
         break;
       }
 
-      case "auto-scan-permit": {
+      case "set-auto-scan-permit": {
+        console.log("reached perm");
         setAutoScanPermit(message.permit);
-        if (message.permit === "not-allowed") {
-          document.removeEventListener("change", initModelRequest);
-        }
         break;
       }
 
@@ -58,7 +60,6 @@ async function handleStartScan() {
   console.log(autoScanPermit);
   if (autoScanPermit === "Allow") {
     initModelRequest();
-    document.addEventListener("change", initModelRequest);
   }
 }
 async function initModelRequest() {

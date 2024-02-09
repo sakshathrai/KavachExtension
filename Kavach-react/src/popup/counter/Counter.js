@@ -1,11 +1,31 @@
 import { useEffect, useState } from "react";
 import { storage, runtime, tabs } from "webextension-polyfill";
 import { getCurrentTab } from "../../helper/tabs";
-
+import { getAutoScanPermit } from "../../helper/storage";
 export const Counter = () => {
   const [count, setCount] = useState(0);
   const [analysis, setAnalysis] = useState("Kavach is Being preparing...");
+  const [autoScan, setAutoScan] = useState("none");
 
+  async function autoScanHandle() {
+    const scanPermit = await getAutoScanPermit();
+    setAutoScan(scanPermit);
+  }
+
+  async function sendUpdateScanMessage(permit) {
+    const tab = await getCurrentTab();
+    const tabId = tab.id;
+    console.log(tabId);
+    if (tabId) {
+      tabs.sendMessage(tabId, {
+        to: "content",
+        from: "popup",
+        action: "set-auto-scan-permit",
+        permit,
+      });
+    }
+    console.log("msg snt to scanup");
+  }
   useEffect(() => {
     const readBackgroundMessage = async () => {
       const tab = await getCurrentTab();
@@ -37,6 +57,7 @@ export const Counter = () => {
     });
 
     readBackgroundMessage();
+    autoScanHandle();
   }, []);
 
   return (
@@ -46,7 +67,21 @@ export const Counter = () => {
       }}
       // onClick={() => setValue(value + 1)}
     >
+      <div>{autoScan}</div>
       <div>{analysis}</div>
+      <button
+        onClick={() => {
+          if (autoScan === "Allow") {
+            setAutoScan("not-allowed");
+            sendUpdateScanMessage("not-allowed");
+          } else if (autoScan === "not-allowed") {
+            setAutoScan("Allow");
+            sendUpdateScanMessage("Allow");
+          }
+        }}
+      >
+        Select auto scan `current:{autoScan}`
+      </button>
       {analysis === "Scanning complete!!" ? (
         <div>Totle DP : {count}</div>
       ) : (

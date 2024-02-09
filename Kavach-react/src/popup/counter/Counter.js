@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { storage, runtime, tabs } from "webextension-polyfill";
 import { getCurrentTab } from "../../helper/tabs";
 import { getAutoScanPermit } from "../../helper/storage";
+import ProgressBar from "../components/progress";
+import Theme from "../components/theme";
+import Navbar from "../components/navbar";
 export const Counter = () => {
   const [count, setCount] = useState(0);
   const [analysis, setAnalysis] = useState("Kavach is Being preparing...");
@@ -107,6 +110,9 @@ export const Counter = () => {
           Scan For DP
         </button>
       </div>
+      <Theme/>
+<Navbar/>
+
     </div>
   );
 };

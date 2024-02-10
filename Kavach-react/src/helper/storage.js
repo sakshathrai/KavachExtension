@@ -1,15 +1,15 @@
 import { storage } from "webextension-polyfill";
 
 const readLocalStorage = async (key) => {
-  return new Promise((resolve, reject) => {
-    storage.local.get([key], function (result) {
-      if (result[key] === undefined) {
-        reject();
-      } else {
-        resolve(result[key]);
-      }
-    });
-  });
+  try {
+    const result = await storage.local.get(key);
+    if (result[key] === undefined) {
+      throw new Error("Key not found");
+    }
+    return result[key];
+  } catch (error) {
+    throw error;
+  }
 };
 
 export async function getAutoScanPermit() {
@@ -37,4 +37,35 @@ export async function getDpCount() {
 
 export async function setDpCount(DP_COUNT) {
   storage.local.set({ DP_COUNT });
+}
+
+export async function getDpPatternCount() {
+  try {
+    const DARK_PATTERNS_COUNT = await readLocalStorage("DARK_PATTERNS_COUNT");
+    return DARK_PATTERNS_COUNT;
+    // return JSON.parse(DARK_PATTERNS_COUNT);
+  } catch (e) {
+    return e;
+    // return {
+    //   0: 0,
+    //   1: 0,
+    //   2: 0,
+    //   3: 0,
+    //   4: 0,
+    //   5: 0,
+    //   6: 0,
+    //   7: 0,
+    // };
+  }
+}
+
+export async function setDpPatternCount(DARK_PATTERNS_COUNT) {
+  try {
+    await storage.local.set({
+      DARK_PATTERNS_COUNT: JSON.stringify(DARK_PATTERNS_COUNT),
+    });
+    return "DARK_PATTERNS_COUNT saved successfully.";
+  } catch (error) {
+    return error;
+  }
 }

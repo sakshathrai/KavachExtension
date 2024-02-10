@@ -34,8 +34,13 @@ function Graph({ values }) {
   }, [values]);
 
   return (
-    <div className="card flex justify-content-center">
-      <Chart type="doughnut" data={chartData} options={chartOptions} className="w-full md:w-30rem" />
+    <div className="card flex justify-content-center h-full">
+      <Chart
+        type="doughnut"
+        data={chartData}
+        options={chartOptions}
+        className="w-full md:w-30rem"
+      />
     </div>
   );
 }

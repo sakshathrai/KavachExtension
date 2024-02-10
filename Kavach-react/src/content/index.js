@@ -2,8 +2,10 @@ import { runtime } from "webextension-polyfill";
 import {
   getAutoScanPermit,
   getDpCount,
+  getDpPatternCount,
   setAutoScanPermit,
   setDpCount,
+  setDpPatternCount,
 } from "../helper/storage";
 let DP_COUNT = null;
 const DARK_PATTERNS = {
@@ -16,6 +18,20 @@ const DARK_PATTERNS = {
   6: "Sneaking",
   7: "Forced Action",
 };
+let DARK_PATTERNS_COUNT = {
+  0: 0,
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+  5: 0,
+  6: 0,
+  7: 0,
+};
+setAutoScanPermit("Allow");
+setDpCount(0);
+setDpPatternCount(DARK_PATTERNS_COUNT);
+
 window.onload = () => {
   handleStartScan();
   document.addEventListener("change", handleStartScan);
@@ -180,15 +196,25 @@ function getValidArrayOfContent(ArrayOfElement) {
 }
 
 // handeling response for each request
-function handleModelResponse(domElement, label, score, type, _id) {
+async function handleModelResponse(domElement, label, score, type, _id) {
   if (score < 0.9 || label === 1 || !domElement) return;
   DP_COUNT++;
-  setDpCount(DP_COUNT); // updating Dark Pattern COUNT
+  await setDpCount(DP_COUNT); // updating Dark Pattern COUNT
 
+  DARK_PATTERNS_COUNT = {
+    ...DARK_PATTERNS_COUNT,
+    [label]: DARK_PATTERNS_COUNT[label] + 1,
+  };
+  // console.log(JSON.stringify(DARK_PATTERNS_COUNT));
+  const set = await setDpPatternCount(DARK_PATTERNS_COUNT);
+  console.log(set);
+  const d = await getDpPatternCount();
+  console.log(d);
   runtime.sendMessage({
     to: "popup",
     action: "increment-count",
     count: DP_COUNT,
+    DARK_PATTERNS_COUNT,
   });
 
   runtime.sendMessage({

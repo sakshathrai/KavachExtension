@@ -59,12 +59,22 @@ export async function getDpPatternCount() {
 }
 
 export async function setDpPatternCount(DARK_PATTERNS_COUNT) {
+  await storage.local.set({
+    DARK_PATTERNS_COUNT: JSON.stringify(DARK_PATTERNS_COUNT),
+  });
+}
+
+export async function getAllowedPatterns() {
   try {
-    await storage.local.set({
-      DARK_PATTERNS_COUNT: JSON.stringify(DARK_PATTERNS_COUNT),
-    });
-    return "DARK_PATTERNS_COUNT saved successfully.";
-  } catch (error) {
-    return error;
+    const allowedPatterns = await readLocalStorage("allowedPatterns");
+    return JSON.parse(allowedPatterns);
+  } catch (e) {
+    return [0, 2, 3, 4, 5, 6, 7];
   }
+}
+
+export async function setAllowedPatterns(allowedPatterns) {
+  await storage.local.set({
+    allowedPatterns: JSON.stringify(allowedPatterns),
+  });
 }

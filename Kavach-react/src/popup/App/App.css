@@ -6,3 +6,7 @@ body {
   width: 400px;
   min-height: 100vh;
 }
+.switch-btn{
+  display: flex;
+  justify-content: space-between;
+}

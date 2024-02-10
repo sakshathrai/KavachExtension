@@ -1,8 +1,8 @@
 import { runtime } from "webextension-polyfill";
 import {
+  getAllowedPatterns,
   getAutoScanPermit,
   getDpCount,
-  getDpPatternCount,
   setAutoScanPermit,
   setDpCount,
   setDpPatternCount,
@@ -28,6 +28,9 @@ let DARK_PATTERNS_COUNT = {
   6: 0,
   7: 0,
 };
+
+let allowedPatterns = [0, 2, 3, 4, 5, 6, 7];
+
 setAutoScanPermit("Allow");
 setDpCount(0);
 setDpPatternCount(DARK_PATTERNS_COUNT);
@@ -38,7 +41,7 @@ window.onload = () => {
 };
 runtime.onMessage.addListener(async (message) => {
   if (message.to === "content") {
-    console.log("reached-au");
+    // console.log("reached-au");
 
     switch (message.action) {
       case "tabActivated": {
@@ -47,13 +50,11 @@ runtime.onMessage.addListener(async (message) => {
       }
 
       case "start-scanning": {
-        console.log("reached ss");
         initModelRequest();
         break;
       }
 
       case "set-auto-scan-permit": {
-        console.log("reached perm");
         setAutoScanPermit(message.permit);
         break;
       }
@@ -206,10 +207,8 @@ async function handleModelResponse(domElement, label, score, type, _id) {
     [label]: DARK_PATTERNS_COUNT[label] + 1,
   };
   // console.log(JSON.stringify(DARK_PATTERNS_COUNT));
-  const set = await setDpPatternCount(DARK_PATTERNS_COUNT);
-  console.log(set);
-  const d = await getDpPatternCount();
-  console.log(d);
+  await setDpPatternCount(DARK_PATTERNS_COUNT);
+
   runtime.sendMessage({
     to: "popup",
     action: "increment-count",
@@ -294,6 +293,7 @@ async function handleArrayRequest(ArrayOfElement, type) {
   const chunkOfArrays = getChunckOfArray(validArrayOfContent, 50);
   for (let i = 0; i < chunkOfArrays.length; i++) {
     const arrayOfContent = chunkOfArrays[i];
+    allowedPatterns = await getAllowedPatterns();
     const data = await fetch("http://localhost:8000/predict", {
       method: "POST",
       headers: {
@@ -301,7 +301,7 @@ async function handleArrayRequest(ArrayOfElement, type) {
       },
       body: JSON.stringify({
         test: [...arrayOfContent],
-        category: [0, 2, 3, 4, 5, 6, 7],
+        category: [...allowedPatterns],
       }),
     });
 

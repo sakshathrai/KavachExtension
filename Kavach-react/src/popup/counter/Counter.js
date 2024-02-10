@@ -85,7 +85,7 @@ export const Counter = () => {
         </div>
       </header>
 
-      <nav className="flex overflow-x-auto overflow-y-hidden border-b border-gray-700 whitespace-nowrap dark:border-gray-600">
+      <nav className="grid grid-flow-col justify-stretch overflow-x-auto overflow-y-hidden border-b border-gray-700 whitespace-nowrap dark:border-gray-600">
         {/* Home Button */}
         <button className="inline-flex items-center h-10 px-2 py-2 -mb-px text-center text-blue-600 bg-transparent border-b-2 border-blue-500 sm:px-4 -px-1 dark:border-blue-400 dark:text-blue-300 whitespace-nowrap focus:outline-none">
           <svg
@@ -149,7 +149,7 @@ export const Counter = () => {
           <span className="mx-1 text-sm sm:text-base">Customization</span>
         </button>
       </nav>
-      <div class="flex flex-grow justify-center items-center mt-8">
+      <div class="flex flex-grow justify-center items-center my-4">
         <button class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded">
           Scan
         </button>

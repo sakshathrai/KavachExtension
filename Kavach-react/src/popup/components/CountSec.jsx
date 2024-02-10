@@ -19,7 +19,7 @@ function CountSec() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {darkPatterns.map((pattern, index) => (
           <div key={index} className="dark-pattern mb-2 p-2 w-full sm:w-auto sm:flex-shrink-0 border border-gray-700 rounded-md">
-            <h3 className="text-xs sm:text-sm font-semibold mb-1">{pattern}</h3>
+            <h3 className="text-xs sm:text-sm font-semibold mb-1 text-white">{pattern}</h3>
             <div className="flex items-center justify-between">
               <ProgressBar progVal={10} />
               <p className="text-gray-600 text-xxs sm:text-xs">3</p>

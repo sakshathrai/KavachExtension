@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import CustomColor from "../components/CustomColor";
+import LabelSel from "../components/LabelSel";
 
-function Customize() {
+const Customize = () => {
+  const handleColorChange = (colorValues) => {
+    console.log("Color values changed:", colorValues);
+  };
+
   return (
-    <div>Customize</div>
-  )
-}
+    <div className="flex items-center justify-center h-screen">
+      <CustomColor onColorChange={handleColorChange} />
+      <LabelSel/>
+    </div>
+  );
+};
 
-export default Customize
+export default Customize;

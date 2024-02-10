@@ -1,5 +1,22 @@
 import React from 'react'
 import ProgressBar from "../components/progress";
+// English Array
+const english_array = ["Kavach", "Home", "Analysis", "Customize", "Scan", "Dark Pattern", 
+                 "Urgency", "Scarcity", "Misdirection", "Social Proof", 
+                 "Obstruction", "Sneaking", "Forced Action", "© 2024 Kavach. All rights reserved.", 
+                 "Privacy", "Terms"]
+
+// Hindi Array
+const hindi_array = ["कवच", "घर", "विश्लेषण", "कस्टमाइज़", "स्कैन", "डार्क पैटर्न", 
+               "अनावश्यकता", "दुर्लभता", "गुमराही", "सामाजिक सिद्धांत", 
+               "अवरोध", "छुपा रहना", "मजबूर क्रिया", "© 2024 कवच। सभी अधिकार सुरक्षित।", 
+               "गोपनीयता", "शर्तें"]
+
+// Kannada Array
+const kannada_array = ["ಕವಾಚ್", "ಹೋಮ್", "ವಿಶ್ಲೇಷಣೆ", "ಕಸ್ಟಮೈಸ್", "ಸ್ಕ್ಯಾನ್", "ಡಾರ್ಕ್ ಪ್ಯಾಟರ್ನ್", 
+                 "ಅತ್ಯಾವಶ್ಯಕತೆ", "ಕಡಿಮೆಹೊಂದಿಸಿ", "ಮೋಸ", "ಸಾಮಾಜಿಕ ಪ್ರಮಾಣ", 
+                 "ಅಡ್ಡಗೋಡೆ", "ಚುಚ್ಚಲು", "ಕಡಿಮೆ ಕ್ರಿಯೆ", "© 2024 ಕವಾಚ್. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿ.", 
+                 "ಗೌಪ್ಯತೆ", "ಶರತ್ಗಳು"]
 const darkPatterns = [
     'Urgency',
     'Scarcity',

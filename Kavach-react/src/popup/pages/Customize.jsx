@@ -37,7 +37,7 @@ const Customize = () => {
     handlegetAllowedPatterns();
   }, []);
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full" style={{ gap: "1%" }}>
       {DARK_PATTERNS.map((val, i) => {
         return (
           <label className="switch-btn">

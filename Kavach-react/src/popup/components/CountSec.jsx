@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProgressBar from "../components/progress";
 import { getDpPatternCount } from "../../helper/storage";
+import { runtime } from "webextension-polyfill";
 // English Array
 const english_array = [
   "Kavach",
@@ -65,6 +66,8 @@ function CountSec() {
   const [graphValues, setGraphValues] = useState([10, 20, 30, 40, 50, 60, 70]);
   const [DCT, setDARKPATTERNSCOUNT] = useState(null);
   const [total, setTotal] = useState(1);
+  const [count, setCount] = useState(null);
+
   const darkPatterns = [
     "Urgency",
     "Scarcity",
@@ -98,6 +101,22 @@ function CountSec() {
   }
   useEffect(() => {
     getDpPatternCountFromLocal();
+    runtime.onMessage.addListener((message) => {
+      if (message.to === "popup") {
+        switch (message.action) {
+          case "increment-count":
+            if (message.count) setCount(parseInt(message.count));
+            getDpPatternCountFromLocal();
+            break;
+          // case "Scanning":
+          //   setAnalysis("Kavach is Scanning the page!!");
+          //   break;
+          // case "Scanning-Complete":
+          //   setAnalysis("Scanning complete!!");
+          //   break;
+        }
+      }
+    });
   }, []);
   return (
     <section className="py-2 sm:py-4 bg-gray-900 flex-1">

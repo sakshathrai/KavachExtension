@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Graph from "../components/graph";
 import { getDpPatternCount } from "../../helper/storage";
+import { runtime } from "webextension-polyfill";
 
 function Analysis() {
   const [graphValues, setGraphValues] = useState([10, 20, 30, 40, 50, 60, 70]);
@@ -26,6 +27,21 @@ function Analysis() {
   }
   useEffect(() => {
     getDpPatternCountFromLocal();
+    runtime.onMessage.addListener((message) => {
+      if (message.to === "popup") {
+        switch (message.action) {
+          case "increment-count":
+            getDpPatternCountFromLocal();
+            break;
+          // case "Scanning":
+          //   setAnalysis("Kavach is Scanning the page!!");
+          //   break;
+          // case "Scanning-Complete":
+          //   setAnalysis("Scanning complete!!");
+          //   break;
+        }
+      }
+    });
   }, []);
   return <Graph values={graphValues} />;
 }

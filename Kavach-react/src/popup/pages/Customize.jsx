@@ -8,10 +8,7 @@ const Customize = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <CustomColor onColorChange={handleColorChange} />
-      <LabelSel/>
-    </div>
+    <div className="flex flex-col items-center justify-center h-full"></div>
   );
 };
 

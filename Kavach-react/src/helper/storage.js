@@ -45,17 +45,16 @@ export async function getDpPatternCount() {
     return DARK_PATTERNS_COUNT;
     // return JSON.parse(DARK_PATTERNS_COUNT);
   } catch (e) {
-    return e;
-    // return {
-    //   0: 0,
-    //   1: 0,
-    //   2: 0,
-    //   3: 0,
-    //   4: 0,
-    //   5: 0,
-    //   6: 0,
-    //   7: 0,
-    // };
+    return {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+    };
   }
 }
 

@@ -6,7 +6,16 @@ import {
   setDpCount,
 } from "../helper/storage";
 let DP_COUNT = null;
-
+const DARK_PATTERNS = {
+  0: "Urgency",
+  1: "Not Dark Pattern",
+  2: "Scarcity",
+  3: "Misdirection",
+  4: "Social Proof",
+  5: "Obstruction",
+  6: "Sneaking",
+  7: "Forced Action",
+};
 window.onload = () => {
   handleStartScan();
   document.addEventListener("change", handleStartScan);
@@ -207,8 +216,8 @@ function handleModelResponse(domElement, label, score, type, _id) {
   document.body.appendChild(popUpDiv);
 
   popUpDiv.innerHTML = `<div style="display:flex;flex-direction:column;" class="--dp-drop-down">
-    <div>option 1</div>
-    <div>option 2</div>
+    <div>Type: ${DARK_PATTERNS[label]}</div>
+    <div>Report issue</div>
   </div> `;
 
   domElement.addEventListener("mouseover", handelPatternHover);

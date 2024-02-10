@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ApexCharts from "react-apexcharts"
 
 function Graph() {
     // ApexCharts options and config
-  window.addEventListener("load", function() {
+  useEffect(() => {
     const getChartOptions = () => {
         return {
           series: [35.1, 23.5, 2.4, 5.4],
@@ -135,7 +135,7 @@ function Graph() {
             checkbox.addEventListener('change', (event) => handleCheckboxChange(event, chart));
         });
       }
-  });
+  }, []);
   return (
       
 <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">

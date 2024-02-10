@@ -16,7 +16,7 @@ function CountSec() {
     <div className="container mx-auto px-4">
       <h2 className="text-sm sm:text-lg font-bold text-white mb-2 sm:mb-4">Dark Pattern</h2>
   
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         {darkPatterns.map((pattern, index) => (
           <div key={index} className="dark-pattern mb-2 p-2 w-full sm:w-auto sm:flex-shrink-0 border border-gray-700 rounded-md">
             <h3 className="text-xs sm:text-sm font-semibold mb-1 text-white">{pattern}</h3>

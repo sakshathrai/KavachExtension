@@ -5,13 +5,10 @@ import { getAutoScanPermit } from "../../helper/storage";
 import ProgressBar from "../components/progress";
 import Theme from "../components/theme";
 import Navbar from "../components/navbar";
-<<<<<<< HEAD
-import Button from "../components/button";
-=======
 import Button from "../components/Button";
->>>>>>> 74636e9261ac4fabd2e4191bf26e92e9b7f8bbbd
+
 export const Counter = () => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(null);
   const [analysis, setAnalysis] = useState("Kavach is Being preparing...");
   const [autoScan, setAutoScan] = useState("none");
 
@@ -115,10 +112,9 @@ export const Counter = () => {
           Scan For DP
         </button>
       </div>
-      <Theme/>
-<Navbar/>
-<Button/>
-
+      <Theme />
+      <Navbar />
+      <Button />
     </div>
   );
 };

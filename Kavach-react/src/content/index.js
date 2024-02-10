@@ -5,7 +5,7 @@ import {
   setAutoScanPermit,
   setDpCount,
 } from "../helper/storage";
-let DP_COUNT = 0;
+let DP_COUNT = null;
 
 window.onload = () => {
   handleStartScan();
@@ -71,11 +71,13 @@ async function initModelRequest() {
     count: DP_COUNT,
   });
 
-  runtime.sendMessage({
-    to: "background",
-    action: "updateBadgeText",
-    count: DP_COUNT,
-  });
+  if (DP_COUNT !== null) {
+    runtime.sendMessage({
+      to: "background",
+      action: "updateBadgeText",
+      count: DP_COUNT,
+    });
+  }
 
   // get all the DOM content one by one and send for analyzing text
   const divContents = document.querySelectorAll("div");

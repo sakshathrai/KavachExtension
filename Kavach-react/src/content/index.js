@@ -87,7 +87,7 @@ function updateStyle() {
 
 @keyframes dropdown {
         0% {
-            transform: translateY(-50%);
+            transform: translateY(-30%);
             opacity: 0;
         }
         100% {

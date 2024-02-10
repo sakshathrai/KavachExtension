@@ -1,11 +1,11 @@
 import "./App.css";
-import { Counter } from "../counter/Counter";
+import Popup from "../pages/Popup";
 import { useEffect } from "react";
 import { runtime } from "webextension-polyfill";
 function App() {
   return (
     <div className="App">
-      <Counter />
+      <Popup />
     </div>
   );
 }

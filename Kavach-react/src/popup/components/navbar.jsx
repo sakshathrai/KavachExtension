@@ -1,29 +1,28 @@
 import React from 'react'
 
-function Navbar() {
+
+function Navbar({tabSetter}) {
   return (
-<div><ul className="menu bg-base-200 lg:menu-horizontal rounded-box">
-  <li>
-    <a>
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-      Home
-      <span className="badge badge-sm">99+</span>
-    </a>
-  </li>
-  <li>
-    <a>
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-      Analysis
-      <span className="badge badge-sm badge-warning">NEW</span>
-    </a>
-  </li>
-  <li>
-    <a>
-    Customization
-      <span className="badge badge-xs badge-info"></span>
-    </a>
-  </li>
-</ul></div>
+ <><nav className="grid grid-flow-col justify-stretch overflow-x-auto overflow-y-hidden border-b border-gray-700 whitespace-nowrap dark:border-gray-600">
+        {/* Home Button */}
+        <button onClick={()=>{tabSetter("HOME")}}className="inline-flex items-center h-10 px-2 py-2 -mb-px text-center text-blue-600 bg-transparent border-b-2 border-blue-500 sm:px-4 -px-1 dark:border-blue-400 dark:text-blue-300 whitespace-nowrap focus:outline-none">
+          <img src='home-svgrepo-com.svg' className='w-6'></img>
+
+          <span className="mx-1 text-sm sm:text-base">Home</span>
+        </button>
+
+        {/* Analysis Button */}
+        <button onClick={()=>{tabSetter("ANALYSIS")}} className="inline-flex items-center h-10 px-2 py-2 -mb-px text-center text-green-500 bg-transparent border-b-2 border-green-400 sm:px-4 -px-1 dark:border-green-300 dark:text-green-300 whitespace-nowrap focus:outline-none">
+          <img src='customize-svgrepo-com.svg' className='w-8'></img>
+          <span className="mx-1 text-sm sm:text-base">Analysis</span>
+        </button>
+
+        {/* Customization Button */}
+        <button onClick={()=>{tabSetter("CUSTOMIZE")}} className="inline-flex items-center h-10 px-2 py-2 -mb-px text-center text-purple-500 bg-transparent border-b-2 border-purple-400 sm:px-4 -px-1 dark:border-purple-300 dark:text-purple-300 whitespace-nowrap focus:outline-none">
+          <img src='customize-svgrepo-com(1).svg' className='w-7'></img>
+          <span className="mx-1 text-sm sm:text-base">Customize</span>
+        </button>
+      </nav></>
   )
 }
 

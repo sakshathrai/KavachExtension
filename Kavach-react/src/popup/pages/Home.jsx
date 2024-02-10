@@ -5,7 +5,7 @@ function Home() {
   return (
     <div>
         <div class="flex flex-grow justify-center items-center my-4">
-        <button class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded">
+        <button class="bg-amber-500 hover:bg-amber-700 text-white text-xl font-bold py-2 px-4 rounded">
           Scan
         </button>
       </div>

@@ -3,10 +3,10 @@ import Theme from './theme'
 
 function Header() {
   return (
-    <header className="bg-indigo-500 py-2 flex items-center justify-between px-4">
+    <header className="bg-amber-500 py-2 flex items-center justify-between px-4">
         <div className="flex items-center">
-          <img src="logo_48.png" alt="Logo" className="w-6 h-6 mr-2" />
-          <h1 className="text-white font-semibold text-sm">Kavach</h1>
+          <img src="logo_128.png" alt="Logo" className="w-10 h-10 mr-2" />
+          <h1 className="text-white font-semibold text-2xl">Kavach</h1>
         </div>
         <div className="flex items-center">
           <Theme />

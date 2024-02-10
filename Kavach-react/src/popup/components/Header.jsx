@@ -1,6 +1,6 @@
 import React from 'react'
 import Theme from './theme'
-
+import Lang from '../components/lang'
 function Header() {
   return (
     <header className="bg-amber-500 py-2 flex items-center justify-between px-4">
@@ -9,7 +9,8 @@ function Header() {
           <h1 className="text-white font-semibold text-2xl">Kavach</h1>
         </div>
         <div className="flex items-center">
-          <Theme />
+          <Lang/>
+
         </div>
       </header>
   )

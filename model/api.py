@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-origins = ["*"]  # Adjust this based on your CORS requirements
+origins = ["*"]  
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

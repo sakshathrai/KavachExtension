@@ -6,7 +6,7 @@ import torch
 app = Flask(__name__)
 CORS(app)
 
-model_path = "Kavach Beta 1 Model"
+model_path = "BERT_Fine_Tuned_Model__"
 model = BertForSequenceClassification.from_pretrained(model_path)
 tokenizer = BertTokenizerFast.from_pretrained(model_path)
 

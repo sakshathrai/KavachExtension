@@ -50,6 +50,53 @@ function updateStyle() {
   visibility: hidden !important;
   display: none !important;
 }
+
+.--dp-drop-down{
+  animation: dropdown 0.5s ease forwards;
+  opacity: 0;
+  width: 150px;
+  background-color: #111827;
+  color: #fff;
+  font-weight: 400;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.--dp-drop-down div{
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.--dp-drop-down div:hover{
+  background-color: #1f2937;
+  -webkit-transform: scale(0.94);
+  -ms-transform: scale(0.94);
+  transform: scale(0.94);
+  transition: 200ms ease;
+}
+
+@keyframes dropdown {
+        0% {
+            transform: translateY(-50%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+  
+@keyframes moveDottedBorder {
+    0% {
+        border-width: 2px; 
+    }
+    100% {
+        border-width: 10px;
+    }
+}
+
+
 `;
   document.head.appendChild(style);
 }
@@ -146,38 +193,50 @@ function handleModelResponse(domElement, label, score, type, _id) {
     domElement.id = `ANCHOR-DP-${type}-${_id}`;
     domElementid = domElement.id;
   }
-  domElement.style.border = "4px solid #726C94";
-  domElement.style.borderRadius = "5px";
-  domElement.style.backgroundColor = "yellow";
-
-  const domElementBound = domElement.getBoundingClientRect();
+  domElement.style.border = "3px solid #e11d48";
+  domElement.style.backgroundColor = "#f59e0b";
 
   const popUpDiv = document.createElement("div");
   popUpDiv.id = `${domElementid}-pop`;
   popUpDiv.classList.add("hide-popover");
   popUpDiv.classList.add("DP-POP-UP");
 
-  popUpDiv.style.position = "fixed";
-  popUpDiv.style.top = domElementBound.top + window.scrollY + "px";
-  popUpDiv.style.left = domElementBound.right + window.scrollX + "px";
+  popUpDiv.style.position = "absolute";
   popUpDiv.style.display = "none";
-  popUpDiv.style.backgroundColor = "#000";
-  popUpDiv.style.color = "#fff";
+  popUpDiv.classList.add("--dp-pop-up-container");
   document.body.appendChild(popUpDiv);
 
-  const cancelDiv = document.createElement("div");
-  cancelDiv.textContent = "X";
-  cancelDiv.style.backgroundColor = "red";
+  popUpDiv.innerHTML = `<div style="display:flex;flex-direction:column;" class="--dp-drop-down">
+    <div>option 1</div>
+    <div>option 2</div>
+  </div> `;
 
-  popUpDiv.innerHTML = `<div style="display:flex;flex-direction:column;"><div>option 1</div><div>option 2</div></div> `;
+  domElement.addEventListener("mouseover", handelPatternHover);
 
-  domElement.addEventListener("mouseover", toggleOptions);
-  cancelDiv.addEventListener("click", toggleOptions);
-  popUpDiv.appendChild(cancelDiv);
-
-  function toggleOptions(e) {
-    popUpDiv.classList.toggle("hide-popover");
+  function handelPatternHover(e) {
+    handleMouseOver(e, domElement, popUpDiv, handelPatternHover);
   }
+}
+
+function handleMouseOver(e, domElement, popUpDiv, handelPatternHover) {
+  const mouseX = e.clientX + window.scrollX;
+  const mouseY = e.clientY + window.scrollY;
+
+  popUpDiv.style.left = mouseX + 5 + "px";
+  popUpDiv.style.top = mouseY + 5 + "px";
+  popUpDiv.classList.remove("hide-popover");
+
+  domElement.removeEventListener("mouseover", handelPatternHover);
+
+  popUpDiv.addEventListener("mouseleave", () => {
+    domElement.addEventListener("mouseover", handelPatternHover);
+    handleMouseLeave(popUpDiv, domElement, handelPatternHover);
+  });
+}
+
+function handleMouseLeave(popUpDiv) {
+  popUpDiv.classList.add("hide-popover");
+  popUpDiv.removeEventListener("mouseleave", handleMouseLeave);
 }
 
 function getChunckOfArray(validArrayOfContent, chunkSize) {

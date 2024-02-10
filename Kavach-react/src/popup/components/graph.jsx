@@ -1,6 +1,7 @@
 import React from 'react'
+import ApexCharts from "react-apexcharts"
 
-function graph() {
+function Graph() {
     // ApexCharts options and config
   window.addEventListener("load", function() {
     const getChartOptions = () => {
@@ -207,4 +208,4 @@ function graph() {
   );
 }
 
-export default graph
+export default Graph

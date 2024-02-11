@@ -7,7 +7,9 @@ import {
   setDpCount,
   setDpPatternCount,
 } from "../helper/storage";
+
 let DP_COUNT = null;
+
 const DARK_PATTERNS = {
   0: "Urgency",
   1: "Not Dark Pattern",
@@ -18,6 +20,7 @@ const DARK_PATTERNS = {
   6: "Sneaking",
   7: "Forced Action",
 };
+
 let DARK_PATTERNS_COUNT = {
   0: 0,
   1: 0,
@@ -72,7 +75,8 @@ function updateStyle() {
 .DP-POP-UP{
     display: block !important;
 }
-.DP-POP-UP.hide-popover{
+.DP-POP-UP.hide-popover,
+.report-form.hide-popover{
   visibility: hidden !important;
   display: none !important;
 }
@@ -96,9 +100,6 @@ function updateStyle() {
 
 .--dp-drop-down div:hover{
   background-color: #1f2937;
-  -webkit-transform: scale(0.94);
-  -ms-transform: scale(0.94);
-  transform: scale(0.94);
   transition: 200ms ease;
 }
 
@@ -120,6 +121,40 @@ function updateStyle() {
     100% {
         border-width: 10px;
     }
+}
+
+.report-form{
+  position: absolute;
+  top: 98%; 
+  left: 90%;
+  width: 500px;
+  background-color: #111827;
+  color: #fff;
+  font-weight: 400;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.report-issue{
+  position: relative;
+}
+
+.feedbackSection{
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.inputSection{
+  display: flex;
+  flex-direction: column;
+  gap: 4%;
+  padding: 10px;
+}
+
+.feedbackTextarea{
+  overflow-y: hidden;
+  // height : 90px;
 }
 
 
@@ -238,12 +273,99 @@ async function handleModelResponse(domElement, label, score, type, _id) {
   popUpDiv.style.position = "absolute";
   popUpDiv.style.display = "none";
   popUpDiv.classList.add("--dp-pop-up-container");
+
+  const dropDown = document.createElement("div");
+  dropDown.style.display = "flex";
+  dropDown.style.flexDirection = "column";
+  dropDown.classList.add("--dp-drop-down");
+  dropDown.innerHTML = `<div>Type: ${DARK_PATTERNS[label]}</div>`;
+
+  const reportIssue = document.createElement("div");
+  reportIssue.textContent = "Report issue";
+
+  const reportForm = document.createElement("div");
+  const reportFormContent = document.createElement("div");
+
+  const feedbackSection = document.createElement("div");
+  feedbackSection.classList.add("feedbackSection");
+
+  const feedbackTitle = document.createElement("div");
+  feedbackTitle.classList.add("feedbackTitle");
+  feedbackTitle.textContent = "Provide additional feedback";
+
+  const closeButton = document.createElement("button");
+  closeButton.classList.add("closeButton");
+  closeButton.textContent = "X";
+
+  feedbackSection.appendChild(feedbackTitle);
+  feedbackSection.appendChild(closeButton);
+
+  const inputSection = document.createElement("div");
+  inputSection.classList.add("inputSection");
+
+  const feedbackTextarea = document.createElement("textarea");
+  feedbackTextarea.classList.add("feedbackTextarea");
+
+  const harmfulCheckbox = document.createElement("input");
+  harmfulCheckbox.setAttribute("type", "checkbox");
+  const harmfulLabel = document.createElement("label");
+  harmfulLabel.textContent = "This is harmful / unsafe";
+  harmfulLabel.appendChild(harmfulCheckbox);
+
+  const notTrueCheckbox = document.createElement("input");
+  notTrueCheckbox.setAttribute("type", "checkbox");
+  const notTrueLabel = document.createElement("label");
+  notTrueLabel.textContent = "This isn't true";
+  notTrueLabel.appendChild(notTrueCheckbox);
+
+  const notHelpfulCheckbox = document.createElement("input");
+  notHelpfulCheckbox.setAttribute("type", "checkbox");
+  const notHelpfulLabel = document.createElement("label");
+  notHelpfulLabel.textContent = "This isn't helpful";
+  notHelpfulLabel.appendChild(notHelpfulCheckbox);
+
+  inputSection.appendChild(feedbackTextarea);
+  inputSection.appendChild(harmfulLabel);
+  inputSection.appendChild(document.createElement("br"));
+  inputSection.appendChild(notTrueLabel);
+  inputSection.appendChild(document.createElement("br"));
+  inputSection.appendChild(notHelpfulLabel);
+
+  const submitSection = document.createElement("div");
+  submitSection.classList.add("submitSection");
+
+  const submitButton = document.createElement("button");
+  submitButton.classList.add("submitButton");
+  submitButton.textContent = "Submit form";
+
+  submitSection.appendChild(submitButton);
+
+  reportFormContent.appendChild(feedbackSection);
+  reportFormContent.appendChild(inputSection);
+  reportFormContent.appendChild(submitSection);
+
+  reportForm.appendChild(reportFormContent);
+
+  reportForm.classList.add("report-form");
+  reportForm.classList.add("hide-popover");
+  reportIssue.classList.add("report-issue");
+
+  reportIssue.appendChild(reportForm);
+  dropDown.appendChild(reportIssue);
+  popUpDiv.appendChild(dropDown);
   document.body.appendChild(popUpDiv);
 
-  popUpDiv.innerHTML = `<div style="display:flex;flex-direction:column;" class="--dp-drop-down">
-    <div>Type: ${DARK_PATTERNS[label]}</div>
-    <div>Report issue</div>
-  </div> `;
+  closeButton.addEventListener("click", () => {
+    reportForm.classList.toggle("hide-popover");
+  });
+
+  submitButton.addEventListener("click", () => {
+    reportForm.classList.toggle("hide-popover");
+  });
+
+  reportIssue.addEventListener("click", () => {
+    reportForm.classList.remove("hide-popover");
+  });
 
   domElement.addEventListener("mouseover", handelPatternHover);
 

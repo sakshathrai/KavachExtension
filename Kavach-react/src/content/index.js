@@ -141,7 +141,7 @@ function updateStyle() {
 
 .feedbackSection{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 10px;
 }
 
@@ -355,17 +355,15 @@ async function handleModelResponse(domElement, label, score, type, _id) {
   popUpDiv.appendChild(dropDown);
   document.body.appendChild(popUpDiv);
 
-  closeButton.addEventListener("click", () => {
-    reportForm.classList.toggle("hide-popover");
-  });
+  closeButton.addEventListener("click", hideForm);
 
-  submitButton.addEventListener("click", () => {
-    reportForm.classList.toggle("hide-popover");
-  });
+  submitButton.addEventListener("click", hideForm);
 
-  reportIssue.addEventListener("click", () => {
-    reportForm.classList.remove("hide-popover");
-  });
+  reportIssue.addEventListener("click", hideForm);
+
+  function hideForm() {
+    reportForm.classList.toggle("hide-popover");
+  }
 
   domElement.addEventListener("mouseover", handelPatternHover);
 

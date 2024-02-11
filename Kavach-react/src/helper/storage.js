@@ -83,5 +83,14 @@ export async function setAllowedPatterns(allowedPatterns) {
 }
 
 export async function getCurrentSite() {
-  return "Amazon";
+  try {
+    const url = await readLocalStorage("curSite");
+    return url;
+  } catch (e) {
+    return "Kavach";
+  }
+}
+
+export async function setCurrentSite(url) {
+  await storage.local.set({ curSite: url });
 }

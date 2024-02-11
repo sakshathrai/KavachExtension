@@ -1,9 +1,12 @@
 import { runtime, storage, tabs, action } from "webextension-polyfill";
 import {
+  getCurrentSite,
   setAutoScanPermit,
+  setCurrentSite,
   setDpCount,
   setDpPatternCount,
 } from "../helper/storage";
+import { getCurrentTab } from "../helper/tabs";
 
 runtime.onMessage.addListener(async (message) => {
   if (message.to === "background") {
@@ -34,15 +37,25 @@ function initializeStorageCount() {
   });
 }
 
-tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (changeInfo.status === "loading") {
     initializeStorageCount();
+    const currentTab = await getCurrentTab();
+    if (currentTab) {
+      const baseUrl = new URL(currentTab.url).origin;
+      setCurrentSite(baseUrl);
+    }
   }
 });
 
-tabs.onCreated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === "loading") {
+tabs.onCreated.addListener(async (tabId, changeInfo, tab) => {
+  if (changeInfo && changeInfo.status === "complete") {
     initializeStorageCount();
+    const currentTab = await getCurrentTab();
+    if (currentTab) {
+      const baseUrl = new URL(currentTab.url).origin;
+      setCurrentSite(baseUrl);
+    }
   }
 });
 

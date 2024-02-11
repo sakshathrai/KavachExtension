@@ -355,13 +355,17 @@ async function handleModelResponse(domElement, label, score, type, _id) {
   popUpDiv.appendChild(dropDown);
   document.body.appendChild(popUpDiv);
 
+  reportForm.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
   closeButton.addEventListener("click", hideForm);
 
   submitButton.addEventListener("click", hideForm);
 
   reportIssue.addEventListener("click", hideForm);
 
-  function hideForm() {
+  function hideForm(e) {
+    e.stopPropagation();
     reportForm.classList.toggle("hide-popover");
   }
 

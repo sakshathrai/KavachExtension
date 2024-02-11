@@ -76,6 +76,13 @@ function CountSec() {
     "Obstruction",
     "Sneaking",
     "Forced Action",
+    // "अनावश्यकता",
+    // "दुर्लभता",
+    // "गुमराही",
+    // "सामाजिक सिद्धांत",
+    // "अवरोध",
+    // "छुपा रहना",
+    // "मजबूर क्रिया",
   ];
   useEffect(() => {
     if (DCT) {
@@ -123,6 +130,7 @@ function CountSec() {
       <div className="container mx-auto px-4">
         <h2 className="text-sm sm:text-lg font-bold text-white mb-2 sm:mb-4">
           Dark Pattern
+          {/* डार्क पैटर्न */}
         </h2>
 
         <div className="grid grid-cols-2 gap-4">

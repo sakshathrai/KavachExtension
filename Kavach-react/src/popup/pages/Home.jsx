@@ -39,7 +39,7 @@ function Home() {
           Scan
         </button>
         {count>0 && (
-          <div className="mx-1 text-sm sm:text-base">
+          <div className="mx-1 mb-2 p-2 border border-gray-300 rounded-md text-sm sm:text-base text-white">
             {analysis === "complete"
               ? "Total Patterns Detected"
               : "Patterns Detected"}

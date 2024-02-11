@@ -8,7 +8,7 @@ function Header() {
           <img src="logo_128.png" alt="Logo" className="w-10 h-10 mr-2" />
           <h1 className="text-white font-semibold text-2xl">
              Kavach 
-            कवच
+            {/* कवच */}
             
             </h1>
         </div>

@@ -27,7 +27,7 @@ function Lang() {
       {isDropdownOpen && (
         <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
           <li>
-            <a onClick={() => handleLanguageSelect('हिन्दी1')}>हिन्दी1</a>
+            <a onClick={() => handleLanguageSelect('हिन्दी1')}>हिन्दी</a>
           </li>
           <li>
             <a onClick={() => handleLanguageSelect('ಕನ್ನಡ')}>ಕನ್ನಡ</a>

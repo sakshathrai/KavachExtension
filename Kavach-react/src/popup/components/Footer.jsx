@@ -7,8 +7,12 @@ function Footer() {
           <div className="flex items-center justify-between">
             <p className="text-gray-600 text-xs">
               © 2024 Kavach. All rights reserved.
+              {/* © 2024 कवच। सभी अधिकार सुरक्षित।. */}
             </p>
-            <p className="text-gray-600 text-xs">Privacy | Terms</p>
+            <p className="text-gray-600 text-xs">
+              Privacy | Terms
+              {/* गोपनीयता | शर्तें */}
+              </p>
           </div>
         </div>
       </footer>

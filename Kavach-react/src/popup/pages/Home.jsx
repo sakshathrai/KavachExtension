@@ -6,7 +6,8 @@ function Home() {
     <div className="h-full">
       <div className="flex flex-grow justify-center items-center my-4">
         <button className="bg-amber-500 hover:bg-amber-700 text-white text-xl font-bold py-2 px-4 rounded">
-          Scan
+ Scan 
+        {/* स्कैन */}
         </button>
       </div>
 

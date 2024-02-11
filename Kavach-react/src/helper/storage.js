@@ -81,3 +81,7 @@ export async function setAllowedPatterns(allowedPatterns) {
     allowedPatterns: JSON.stringify(allowedPatterns),
   });
 }
+
+export async function getCurrentSite() {
+  return "Amazon";
+}

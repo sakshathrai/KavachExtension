@@ -13,6 +13,7 @@ function Home() {
   }
   useEffect(() => {
     initExtensionState();
+    getCurrentSite();
   }, []);
 
   runtime.onMessage.addListener((message) => {

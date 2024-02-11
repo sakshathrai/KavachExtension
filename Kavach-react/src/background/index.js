@@ -1,5 +1,9 @@
 import { runtime, storage, tabs, action } from "webextension-polyfill";
-import { setAutoScanPermit, setDpCount } from "../helper/storage";
+import {
+  setAutoScanPermit,
+  setDpCount,
+  setDpPatternCount,
+} from "../helper/storage";
 
 runtime.onMessage.addListener(async (message) => {
   if (message.to === "background") {

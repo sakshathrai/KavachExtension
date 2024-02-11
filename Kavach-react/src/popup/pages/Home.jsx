@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CountSec from "../components/CountSec";
 import { runtime } from "webextension-polyfill";
-import { getDpCount } from "../../helper/storage";
+import { getCurrentSite, getDpCount } from "../../helper/storage";
 
 function Home() {
   const [analysis, setAnalysis] = useState("Kavach is Being preparing...");

@@ -8,7 +8,6 @@ import Button from "../components/Button";
 import CountSec from "../components/CountSec";
 
 export const Counter = () => {
-  const [count, setCount] = useState(null);
   const [analysis, setAnalysis] = useState("Kavach is Being preparing...");
   const [autoScan, setAutoScan] = useState("none");
   const darkPatterns = [

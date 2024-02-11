@@ -34,9 +34,7 @@ let DARK_PATTERNS_COUNT = {
 
 let allowedPatterns = [0, 2, 3, 4, 5, 6, 7];
 
-setAutoScanPermit("Allow");
-setDpCount(0);
-setDpPatternCount(DARK_PATTERNS_COUNT);
+// setDpCount(0);
 
 window.onload = () => {
   handleStartScan();
@@ -418,6 +416,7 @@ async function handleArrayRequest(ArrayOfElement, type) {
   for (let i = 0; i < chunkOfArrays.length; i++) {
     const arrayOfContent = chunkOfArrays[i];
     allowedPatterns = await getAllowedPatterns();
+    if(!allowedPatterns.length || !arrayOfContent.length)continue;
     const data = await fetch("http://localhost:8000/predict", {
       method: "POST",
       headers: {

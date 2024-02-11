@@ -57,22 +57,23 @@ const Customize = () => {
     <div className="flex flex-col items-center justify-center overflow-y-auto">
       <h2 className="text-2xl mb-4">Customize</h2>
       <div className="grid grid-cols-2 gap-4">
-        {DARK_PATTERNS.map((pattern, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between p-2 bg-white rounded-md shadow-md"
-          >
-            <span className="text-gray-800">{pattern}</span>
-            <Switch
-              checked={patternState[index]}
-              onChange={() => handleSwitchChange(index)}
-              onColor={selectedColor}
-              offColor="#ccc"
-              uncheckedIcon={<div className="switch-label">Off</div>}
-              checkedIcon={<div className="switch-label">On</div>}
-            />
-          </div>
-        ))}
+        {DARK_PATTERNS.length &&
+          DARK_PATTERNS.map((pattern, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between p-2 bg-white rounded-md shadow-md"
+            >
+              <span className="text-gray-800">{pattern}</span>
+              <Switch
+                checked={patternState[index]}
+                onChange={() => handleSwitchChange(index)}
+                onColor={selectedColor}
+                offColor="#ccc"
+                uncheckedIcon={<div className="switch-label">Off</div>}
+                checkedIcon={<div className="switch-label">On</div>}
+              />
+            </div>
+          ))}
       </div>
       <div className="mt-4">
         <label className="block mb-2 text-sm">Select Color:</label>

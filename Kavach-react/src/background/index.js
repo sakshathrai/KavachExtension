@@ -1,4 +1,5 @@
 import { runtime, storage, tabs, action } from "webextension-polyfill";
+import { setAutoScanPermit, setDpCount } from "../helper/storage";
 
 runtime.onMessage.addListener(async (message) => {
   if (message.to === "background") {
@@ -14,6 +15,33 @@ runtime.onMessage.addListener(async (message) => {
   }
 });
 
+function initializeStorageCount() {
+  setDpCount(0);
+  setAutoScanPermit("Allow");
+  setDpPatternCount({
+    0: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+  });
+}
+
+tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === "loading") {
+    initializeStorageCount();
+  }
+});
+
+tabs.onCreated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === "loading") {
+    initializeStorageCount();
+  }
+});
+
 export async function init() {
   // await storage.local.clear();
   // tabs.onActivated.addListener(async (activeInfo) => {
@@ -26,6 +54,7 @@ export async function init() {
   //     });
   //   }
   // });
+  console.log("[Extension] is Active");
 }
 
 function handleDpCount(DP_COUNT) {

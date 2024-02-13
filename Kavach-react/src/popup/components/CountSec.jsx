@@ -126,7 +126,7 @@ function CountSec() {
     });
   }, []);
   return (
-    <section className="py-2 sm:py-4 bg-gray-900 flex-1">
+    <section className="py-2 sm:py-4 bg-gray-770 flex-1 border border-gray-300">
       <div className="container mx-auto px-4">
         <h2 className="text-sm sm:text-lg font-bold text-white mb-2 sm:mb-4">
           Dark Pattern
@@ -138,14 +138,14 @@ function CountSec() {
             darkPatterns.map((pattern, index) => (
               <div
                 key={index}
-                className="dark-pattern mb-2 p-2 w-full sm:w-auto sm:flex-shrink-0 border border-gray-700 rounded-md"
+                className="dark-pattern mb-2 p-2 w-full sm:w-auto sm:flex-shrink-0 border border-gray-300 rounded-md"
               >
                 <h3 className="text-xs sm:text-sm font-semibold mb-1 text-white">
                   {pattern}
                 </h3>
                 <div className="flex items-center justify-between">
                   <ProgressBar progVal={(graphValues[index] / total) * 100} />
-                  <p className="text-gray-600 text-xxs sm:text-xs">
+                  <p className="text-white text-xxs sm:text-xs">
                     {graphValues[index]}
                   </p>
                 </div>

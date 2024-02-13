@@ -12,3 +12,8 @@ body {
   flex-direction: column;
 }
 
+.footer{
+  position: fixed;
+  bottom: 0;
+}
+

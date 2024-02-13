@@ -54,7 +54,7 @@ const Customize = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center overflow-y-auto">
+    <div className="flex flex-col items-center justify-center">
       <h2 className="text-2xl mb-4">Customize</h2>
       <div className="grid grid-cols-2 gap-4">
         {DARK_PATTERNS.length &&

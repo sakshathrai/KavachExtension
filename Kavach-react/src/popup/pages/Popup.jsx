@@ -16,7 +16,7 @@ function Popup() {
   return (
     <div className='Popup-Container'>
         <Header />
-        <Navbar tabSetter={tabSetter}/>
+        <Navbar current={tab} tabSetter={tabSetter}/>
         <div>
             {tab==="HOME"?<Home />:tab==="ANALYSIS"?<Analysis />:<Customize />}
         </div>

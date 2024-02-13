@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             if (currentDomain !== linkDomain) {
               const confirmation = confirm(`This link will redirect to ${linkDomain}. Do you want to proceed?`);
               if (!confirmation) {
-                event.preventDefault(); // Prevent the default link behavior
+                event.preventDefault(); 
               }
             }
           } catch (error) {

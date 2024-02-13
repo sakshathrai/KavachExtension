@@ -5,6 +5,7 @@ const overrideEntry = (config) => {
     main: "./src/popup", // the extension UI
     background: "./src/background",
     content: "./src/content",
+    option: "./src/option",
   };
 
   return config;

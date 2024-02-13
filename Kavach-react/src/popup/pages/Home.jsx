@@ -32,13 +32,18 @@ function Home() {
     }
   });
 
+  function openOptions() {
+    runtime.openOptionsPage();
+  }
+
   return (
     <div className="h-full">
       <div className="flex flex-grow justify-evenly items-center my-4">
         <button className="bg-amber-500 hover:bg-amber-700 text-white text-xl font-bold py-2 px-4 rounded">
           Scan
         </button>
-        {count>0 && (
+        <button onClick={openOptions}>Options</button>
+        {count > 0 && (
           <div className="mx-1 mb-2 p-2 border border-gray-300 rounded-md text-sm sm:text-base text-white">
             {analysis === "complete"
               ? "Total Patterns Detected"

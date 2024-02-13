@@ -413,33 +413,37 @@ async function handleArrayRequest(ArrayOfElement, type) {
   if (!validArrayOfContent || !validArrayOfContent.length) return;
 
   const chunkOfArrays = getChunckOfArray(validArrayOfContent, 50);
+  allowedPatterns = await getAllowedPatterns();
   for (let i = 0; i < chunkOfArrays.length; i++) {
     const arrayOfContent = chunkOfArrays[i];
-    allowedPatterns = await getAllowedPatterns();
-    if(!allowedPatterns.length || !arrayOfContent.length)continue;
-    const data = await fetch("http://localhost:8000/predict", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        test: [...arrayOfContent],
-        category: [...allowedPatterns],
-      }),
-    });
+    if (!arrayOfContent.length) continue;
+    try {
+      const data = await fetch("http://localhost:8000/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          test: [...arrayOfContent],
+          category: [...allowedPatterns],
+        }),
+      });
 
-    const jsonDATA = await data.json();
-    // alert(JSON.stringify(jsonDATA));
-    const modelResults = jsonDATA;
-    if (!modelResults) return;
-    for (let i = 0; i < modelResults.length; i++) {
-      handleModelResponse(
-        ArrayOfElement[parseInt(modelResults[i]._id)],
-        modelResults[i].label,
-        modelResults[i].score,
-        type,
-        modelResults[i]._id
-      );
+      const jsonDATA = await data.json();
+
+      const modelResults = jsonDATA;
+      if (!modelResults) return;
+      for (let i = 0; i < modelResults.length; i++) {
+        handleModelResponse(
+          ArrayOfElement[parseInt(modelResults[i]._id)],
+          modelResults[i].label,
+          modelResults[i].score,
+          type,
+          modelResults[i]._id
+        );
+      }
+    } catch (e) {
+      console.log("ERROR: KAVACH", e);
     }
   }
 }

@@ -327,7 +327,10 @@ async function handleArrayRequest(ArrayOfElement, type) {
   if (!validArrayOfContent || !validArrayOfContent.length) return;
 
   const chunkOfArrays = getChunckOfArray(validArrayOfContent, 50);
-  allowedPatterns = await getAllowedPatterns();
+  const stringallowedPatterns = await getAllowedPatterns();
+  allowedPatterns = stringallowedPatterns.map((v) => {
+    return parseInt(v);
+  });
   for (let i = 0; i < chunkOfArrays.length; i++) {
     const arrayOfContent = chunkOfArrays[i];
     if (!arrayOfContent.length) continue;

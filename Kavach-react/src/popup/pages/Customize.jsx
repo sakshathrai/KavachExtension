@@ -30,7 +30,18 @@ const Customize = () => {
 
   async function handleGetAllowedPatterns() {
     const allowedPatterns = await getAllowedPatterns();
-    setPatternState(allowedPatterns);
+    console.log(allowedPatterns);
+    let newPatternState = {};
+    console.log(allowedPatterns.includes("0"));
+    for (let i = 0; i < 8; i++) {
+      if (allowedPatterns.includes(String(i))) {
+        newPatternState[i] = true;
+      } else {
+        newPatternState[i] = false;
+      }
+    }
+    console.log(newPatternState);
+    setPatternState({ ...newPatternState });
   }
 
   useEffect(() => {
@@ -49,13 +60,24 @@ const Customize = () => {
   };
 
   const savePatternState = () => {
-    setAllowedPatterns(patternState);
-    console.log("Saved patterns:", patternState);
+    setAllowedPatterns(
+      Object.keys(patternState).filter((v) => patternState[v])
+    );
+    console.log(
+      "Saved patterns:",
+      Object.keys(patternState).filter((v) => patternState[v])
+    );
   };
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h2 className="text-2xl mb-4">Customize</h2>
+      {/* <h2 className="text-2xl mb-4">Customize</h2> */}
+      <button
+        className="mt-4 mb-4 bg-blue-500 text-white px-4 py-2 rounded-md"
+        onClick={savePatternState}
+      >
+        Save
+      </button>
       <div className="grid grid-cols-2 gap-4">
         {DARK_PATTERNS.length &&
           DARK_PATTERNS.map((pattern, index) => (
@@ -82,12 +104,6 @@ const Customize = () => {
           onChange={(color) => handleColorChange(color)}
         />
       </div>
-      <button
-        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"
-        onClick={savePatternState}
-      >
-        Save
-      </button>
     </div>
   );
 };

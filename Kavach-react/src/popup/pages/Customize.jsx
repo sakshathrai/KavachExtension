@@ -17,7 +17,7 @@ const Customize = () => {
 
   const [patternState, setPatternState] = useState({
     0: true,
-    1: true,
+    1: false,
     2: true,
     3: true,
     4: true,

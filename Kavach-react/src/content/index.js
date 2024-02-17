@@ -144,7 +144,7 @@ function getValidArrayOfContent(ArrayOfElement) {
 }
 
 // handeling response for each request
-async function handleModelResponse(domElement, label, score, type, _id) {
+async function handleModelResponse(domElement, label, score, type, _id, data) {
   if (score < 0.9 || label === 1 || !domElement) return;
   DP_COUNT++;
   await setDpCount(DP_COUNT); // updating Dark Pattern COUNT
@@ -217,7 +217,7 @@ async function handleModelResponse(domElement, label, score, type, _id) {
 
   const feedbackTextarea = document.createElement("textarea");
   feedbackTextarea.classList.add("feedbackTextarea");
-
+  feedbackTextarea.id = `feedBackDpText-${type}-${_id}`;
   const harmfulCheckbox = document.createElement("input");
   harmfulCheckbox.setAttribute("type", "checkbox");
   const harmfulLabel = document.createElement("label");
@@ -270,9 +270,34 @@ async function handleModelResponse(domElement, label, score, type, _id) {
   reportForm.addEventListener("click", (e) => {
     e.stopPropagation();
   });
+
   closeButton.addEventListener("click", hideForm);
 
-  submitButton.addEventListener("click", hideForm);
+  async function handelFormSUbmit(e) {
+    try {
+      const res = await fetch("http://localhost:3000/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          textData: domElement.textContent,
+          feedbackText: document.getElementById(`feedBackDpText-${type}-${_id}`)
+            .value,
+          dp: data,
+          label: label,
+        }),
+      });
+      const resjson = await res.json();
+      if (resjson.success) {
+        alert("Submission succesfull!");
+      }
+      hideForm(e);
+    } catch (er) {
+      hideForm(e);
+    }
+  }
+  submitButton.addEventListener("click", handelFormSUbmit);
 
   reportIssue.addEventListener("click", hideForm);
 
@@ -356,7 +381,8 @@ async function handleArrayRequest(ArrayOfElement, type) {
           modelResults[i].label,
           modelResults[i].score,
           type,
-          modelResults[i]._id
+          modelResults[i]._id,
+          arrayOfContent[i]
         );
       }
     } catch (e) {

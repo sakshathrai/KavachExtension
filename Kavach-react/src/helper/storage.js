@@ -68,7 +68,9 @@ export async function getAllowedPatterns() {
   try {
     const allowedPatterns = await readLocalStorage("allowedPatterns");
     const allowedPatternsArr = JSON.parse(allowedPatterns);
-    return allowedPatternsArr;
+    return allowedPatternsArr.length
+      ? allowedPatternsArr
+      : [0, 2, 3, 4, 5, 6, 7];
   } catch (e) {
     return [0, 2, 3, 4, 5, 6, 7];
   }

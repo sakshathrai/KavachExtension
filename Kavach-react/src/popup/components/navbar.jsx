@@ -11,7 +11,7 @@ function Navbar({tabSetter, current}) {
           style={{ backgroundColor: current === "HOME" ? "#555555" : "" }}
           className="inline-flex items-center h-12 px-2 py-2 -mb-px text-center text-blue-600 bg-transparent border-b-2 border-blue-500 sm:px-4 -px-1 dark:border-blue-400 dark:text-blue-300 whitespace-nowrap focus:outline-none"
         >
-          <img src="home-svgrepo-com.svg" className="w-6"></img>
+          <img src="home.svg" className="w-6"></img>
 
           <span className="mx-1 text-sm sm:text-base">
             Home
@@ -42,7 +42,7 @@ function Navbar({tabSetter, current}) {
           style={{ backgroundColor: current === "CUSTOMIZE" ? "#555555" : "" }}
           className="inline-flex items-center h-12 px-2 py-2 -mb-px text-center text-purple-600 bg-transparent border-b-2 border-purple-400 sm:px-4 -px-1 dark:border-purple-300 dark:text-purple-300 whitespace-nowrap focus:outline-none"
         >
-          <img src="customize-svgrepo-com(1).svg" className="w-7"></img>
+          <img src="customize.png" className="w-7"></img>
           <span className="mx-1 text-sm sm:text-base">
             Customize
             {/* कस्टमाइज़ */}

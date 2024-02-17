@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const feedbackSchema = new mongoose.Schema({
-  weblink: { type: String, required: true },
-  textData: { type: String, required: true },
-  label: { type: String, required: true },
+  weblink: { type: String },
+  textData: { type: String },
+  label: { type: String },
   feedbackText: { type: String },
   harmfulUnsafe: { type: Boolean },
   notTrue: { type: Boolean },

@@ -7,6 +7,7 @@ import {
   setDpCount,
   setDpPatternCount,
 } from "../helper/storage";
+import { CONTENT_CSS } from "./constant";
 
 let DP_COUNT = null;
 
@@ -69,94 +70,7 @@ runtime.onMessage.addListener(async (message) => {
 
 function updateStyle() {
   const style = document.createElement("style");
-  style.textContent = `
-.DP-POP-UP{
-    display: block !important;
-}
-.DP-POP-UP.hide-popover,
-.report-form.hide-popover{
-  visibility: hidden !important;
-  display: none !important;
-}
-
-.--dp-drop-down{
-  animation: dropdown 0.5s ease forwards;
-  opacity: 0;
-  width: 150px;
-  background-color: #111827;
-  color: #fff;
-  font-weight: 400;
-  border-radius: 3px;
-  padding: 5px;
-}
-
-.--dp-drop-down div{
-  cursor: pointer;
-  border-radius: 3px;
-  padding: 5px;
-}
-
-.--dp-drop-down div:hover{
-  background-color: #1f2937;
-  transition: 200ms ease;
-}
-
-@keyframes dropdown {
-        0% {
-            transform: translateY(-30%);
-            opacity: 0;
-        }
-        100% {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-  
-@keyframes moveDottedBorder {
-    0% {
-        border-width: 2px; 
-    }
-    100% {
-        border-width: 10px;
-    }
-}
-
-.report-form{
-  position: absolute;
-  top: 98%; 
-  left: 90%;
-  width: 500px;
-  background-color: #111827;
-  color: #fff;
-  font-weight: 400;
-  border-radius: 3px;
-  padding: 5px;
-}
-
-.report-issue{
-  position: relative;
-}
-
-.feedbackSection{
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-.inputSection{
-  display: flex;
-  flex-direction: column;
-  gap: 4%;
-  padding: 10px;
-}
-
-.feedbackTextarea{
-  overflow-y: hidden;
-  // height : 90px;
-}
-
-
-`;
+  style.textContent = CONTENT_CSS;
   document.head.appendChild(style);
 }
 
@@ -230,7 +144,7 @@ function getValidArrayOfContent(ArrayOfElement) {
 }
 
 // handeling response for each request
-async function handleModelResponse(domElement, label, score, type, _id) {
+async function handleModelResponse(domElement, label, score, type, _id, data) {
   if (score < 0.9 || label === 1 || !domElement) return;
   DP_COUNT++;
   await setDpCount(DP_COUNT); // updating Dark Pattern COUNT
@@ -303,7 +217,7 @@ async function handleModelResponse(domElement, label, score, type, _id) {
 
   const feedbackTextarea = document.createElement("textarea");
   feedbackTextarea.classList.add("feedbackTextarea");
-
+  feedbackTextarea.id = `feedBackDpText-${type}-${_id}`;
   const harmfulCheckbox = document.createElement("input");
   harmfulCheckbox.setAttribute("type", "checkbox");
   const harmfulLabel = document.createElement("label");
@@ -356,9 +270,34 @@ async function handleModelResponse(domElement, label, score, type, _id) {
   reportForm.addEventListener("click", (e) => {
     e.stopPropagation();
   });
+
   closeButton.addEventListener("click", hideForm);
 
-  submitButton.addEventListener("click", hideForm);
+  async function handelFormSUbmit(e) {
+    try {
+      const res = await fetch("http://localhost:3000/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          textData: domElement.textContent,
+          feedbackText: document.getElementById(`feedBackDpText-${type}-${_id}`)
+            .value,
+          dp: data,
+          label: label,
+        }),
+      });
+      const resjson = await res.json();
+      if (resjson.success) {
+        alert("Submission succesfull!");
+      }
+      hideForm(e);
+    } catch (er) {
+      hideForm(e);
+    }
+  }
+  submitButton.addEventListener("click", handelFormSUbmit);
 
   reportIssue.addEventListener("click", hideForm);
 
@@ -413,7 +352,10 @@ async function handleArrayRequest(ArrayOfElement, type) {
   if (!validArrayOfContent || !validArrayOfContent.length) return;
 
   const chunkOfArrays = getChunckOfArray(validArrayOfContent, 50);
-  allowedPatterns = await getAllowedPatterns();
+  const stringallowedPatterns = await getAllowedPatterns();
+  allowedPatterns = stringallowedPatterns.map((v) => {
+    return parseInt(v);
+  });
   for (let i = 0; i < chunkOfArrays.length; i++) {
     const arrayOfContent = chunkOfArrays[i];
     if (!arrayOfContent.length) continue;
@@ -439,7 +381,8 @@ async function handleArrayRequest(ArrayOfElement, type) {
           modelResults[i].label,
           modelResults[i].score,
           type,
-          modelResults[i]._id
+          modelResults[i]._id,
+          arrayOfContent[i]
         );
       }
     } catch (e) {
@@ -448,5 +391,29 @@ async function handleArrayRequest(ArrayOfElement, type) {
   }
 }
 
+runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.message === "tab_updated") {
+    document.addEventListener("click", async function (event) {
+      if (event.target.tagName === "A") {
+        const link = event.target.href;
+        const currentDomain = window.location.hostname;
+
+        try {
+          const linkDomain = new URL(link).hostname;
+          if (currentDomain !== linkDomain) {
+            const confirmation = window.confirm(
+              `This link will redirect to ${linkDomain}. Do you want to proceed?`
+            );
+            if (!confirmation) {
+              event.preventDefault();
+            }
+          }
+        } catch (error) {
+          console.error("Error processing link:", error);
+        }
+      }
+    });
+  }
+});
 // initContentScript();
 console.log("[content] loaded ");

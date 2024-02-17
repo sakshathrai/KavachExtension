@@ -70,9 +70,9 @@ export async function getAllowedPatterns() {
     const allowedPatternsArr = JSON.parse(allowedPatterns);
     return allowedPatternsArr.length
       ? allowedPatternsArr
-      : [0, 2, 3, 4, 5, 6, 7];
+      : ["0", "2", '3', '4', '5', '6', '7'];
   } catch (e) {
-    return [0, 2, 3, 4, 5, 6, 7];
+    return ["0", "2", "3", "4", "5", "6", "7"];
   }
 }
 

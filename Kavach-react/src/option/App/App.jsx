@@ -1,5 +1,6 @@
 import React from 'react'
-import TermsAndConditions from './components/TermsAndConditions'
+import TermsAndConditions from "../component/TermsAndConditions";
+import "./App.css";
 
 function App() {
   return (

@@ -16,6 +16,8 @@ const overrideOutput = (config) => {
     ...config.output,
     filename: "static/js/[name].js",
     chunkFilename: "static/js/[name].js",
+    // filename: "static/css/[name].css",
+    // chunkFilename: "static/css/[name].css",
   };
 
   return config;

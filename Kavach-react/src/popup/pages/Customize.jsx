@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Switch from "react-switch";
-import { getAllowedPatterns, setAllowedPatterns } from "../../helper/storage";
+import {
+  getAllowedPatterns,
+  getChosenColor,
+  setAllowedPatterns,
+  setChosenColor,
+} from "../../helper/storage";
 import { ChromePicker } from "react-color";
 
 const Customize = () => {
@@ -46,6 +51,9 @@ const Customize = () => {
 
   useEffect(() => {
     handleGetAllowedPatterns();
+    getChosenColor().then((color) => {
+      setSelectedColor(color);
+    });
   }, []);
 
   const handleSwitchChange = (index) => {
@@ -60,13 +68,11 @@ const Customize = () => {
   };
 
   const savePatternState = () => {
+    setChosenColor(selectedColor);
     setAllowedPatterns(
       Object.keys(patternState).filter((v) => patternState[v])
     );
-    console.log(
-      "Saved patterns:",
-      Object.keys(patternState).filter((v) => patternState[v])
-    );
+    console.log("Saved color:", selectedColor);
   };
 
   return (

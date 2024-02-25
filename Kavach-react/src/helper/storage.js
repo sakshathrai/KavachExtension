@@ -94,3 +94,16 @@ export async function getCurrentSite() {
 export async function setCurrentSite(url) {
   await storage.local.set({ curSite: url });
 }
+
+export async function setChosenColor(highlightColor) {
+  await storage.local.set({ highlightColor });
+}
+
+export async function getChosenColor() {
+  try {
+    const HighlightColor = await readLocalStorage("highlightColor");
+    return HighlightColor;
+  } catch (e) {
+    return "#f59e0b";
+  }
+}

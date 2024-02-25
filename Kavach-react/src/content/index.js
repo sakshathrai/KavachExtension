@@ -2,6 +2,7 @@ import { runtime } from "webextension-polyfill";
 import {
   getAllowedPatterns,
   getAutoScanPermit,
+  getChosenColor,
   getDpCount,
   setAutoScanPermit,
   setDpCount,
@@ -144,7 +145,15 @@ function getValidArrayOfContent(ArrayOfElement) {
 }
 
 // handeling response for each request
-async function handleModelResponse(domElement, label, score, type, _id, data) {
+async function handleModelResponse(
+  domElement,
+  label,
+  score,
+  type,
+  _id,
+  data,
+  HighlightColor
+) {
   if (score < 0.9 || label === 1 || !domElement) return;
   DP_COUNT++;
   await setDpCount(DP_COUNT); // updating Dark Pattern COUNT
@@ -174,8 +183,9 @@ async function handleModelResponse(domElement, label, score, type, _id, data) {
     domElement.id = `ANCHOR-DP-${type}-${_id}`;
     domElementid = domElement.id;
   }
+
   domElement.style.border = "3px solid #e11d48";
-  domElement.style.backgroundColor = "#f59e0b";
+  domElement.style.backgroundColor = HighlightColor;
 
   const popUpDiv = document.createElement("div");
   popUpDiv.id = `${domElementid}-pop`;
@@ -356,6 +366,8 @@ async function handleArrayRequest(ArrayOfElement, type) {
   allowedPatterns = stringallowedPatterns.map((v) => {
     return parseInt(v);
   });
+  const HighlightColor = await getChosenColor();
+  console.log(HighlightColor);
   for (let i = 0; i < chunkOfArrays.length; i++) {
     const arrayOfContent = chunkOfArrays[i];
     if (!arrayOfContent.length) continue;
@@ -382,7 +394,8 @@ async function handleArrayRequest(ArrayOfElement, type) {
           modelResults[i].score,
           type,
           modelResults[i]._id,
-          arrayOfContent[i]
+          arrayOfContent[i],
+          HighlightColor
         );
       }
     } catch (e) {

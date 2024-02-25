@@ -33,6 +33,8 @@ const Customize = () => {
 
   const [selectedColor, setSelectedColor] = useState("#36a7c2");
 
+  const [saveButtonClick, setSaveButtonClick] = useState("STATIC");
+
   async function handleGetAllowedPatterns() {
     const allowedPatterns = await getAllowedPatterns();
     console.log(allowedPatterns);
@@ -68,21 +70,38 @@ const Customize = () => {
   };
 
   const savePatternState = () => {
+    setSaveButtonClick("SAVING");
     setChosenColor(selectedColor);
     setAllowedPatterns(
       Object.keys(patternState).filter((v) => patternState[v])
     );
     console.log("Saved color:", selectedColor);
+    setTimeout(() => {
+      setSaveButtonClick("SAVED");
+      setTimeout(() => {
+        setSaveButtonClick("STATIC");
+      }, 500);
+    }, 1000);
   };
 
   return (
     <div className="flex flex-col items-center justify-center">
       {/* <h2 className="text-2xl mb-4">Customize</h2> */}
       <button
-        className="mt-4 mb-4 bg-blue-500 text-white px-4 py-2 rounded-md"
+        className={
+          saveButtonClick === "SAVING"
+            ? "save-animation"
+            : saveButtonClick == "SAVED"
+            ? "mt-4 mb-4 bg-green-500 text-white px-2 py-2 rounded-full"
+            : "mt-4 mb-4 bg-blue-500 text-white px-4 py-2 rounded-md"
+        }
         onClick={savePatternState}
       >
-        Save
+        {saveButtonClick === "STATIC"
+          ? "Apply Changes"
+          : saveButtonClick === "SAVED"
+          ? "Done"
+          : ""}
       </button>
       <div className="grid grid-cols-2 gap-4">
         {DARK_PATTERNS.length &&

@@ -3,7 +3,7 @@ import Graph from "../components/graph";
 import { getDpPatternCount } from "../../helper/storage";
 import { runtime } from "webextension-polyfill";
 
-function Analysis() {
+function Analysis({PLACEHOLDER}) {
   const [graphValues, setGraphValues] = useState([10, 20, 30, 40, 50, 60, 70]);
   const [DCT, setDARKPATTERNSCOUNT] = useState(null);
   useEffect(() => {
@@ -43,7 +43,7 @@ function Analysis() {
       }
     });
   }, []);
-  return <Graph values={graphValues} />;
+  return <Graph values={graphValues} PLACEHOLDER={PLACEHOLDER}/>;
 }
 
 export default Analysis;

@@ -1,5 +1,5 @@
 import React from 'react'
-function Navbar({tabSetter, current}) {
+function Navbar({tabSetter, current,PLACEHOLDER}) {
   return (
     <>
       <nav className="flex justify-evenly overflow-x-auto overflow-y-hidden border-b border-gray-700 whitespace-nowrap dark:border-gray-600 h-12">
@@ -14,7 +14,7 @@ function Navbar({tabSetter, current}) {
           <img src="home.svg" className="w-6"></img>
 
           <span className="mx-1 text-sm sm:text-base">
-            Home
+            {PLACEHOLDER[1]}
             {/* घर */}
           </span>
         </button>
@@ -29,7 +29,7 @@ function Navbar({tabSetter, current}) {
         >
           <img src="customize-svgrepo-com.svg" className="w-8"></img>
           <span className="mx-1 text-sm sm:text-base">
-            Analysis
+            {PLACEHOLDER[2]}
             {/* विश्लेषण */}
           </span>
         </button>
@@ -44,7 +44,7 @@ function Navbar({tabSetter, current}) {
         >
           <img src="customize.png" className="w-7"></img>
           <span className="mx-1 text-sm sm:text-base">
-            Customize
+            {PLACEHOLDER[3]}
             {/* कस्टमाइज़ */}
           </span>
         </button>

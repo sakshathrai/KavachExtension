@@ -3,7 +3,7 @@ import CountSec from "../components/CountSec";
 import { runtime } from "webextension-polyfill";
 import { getCurrentSite, getDpCount } from "../../helper/storage";
 
-function Home() {
+function Home({PLACEHOLDER}) {
   const [analysis, setAnalysis] = useState("Kavach is Being preparing...");
   const [count, setCount] = useState(null);
 
@@ -40,7 +40,7 @@ function Home() {
     <div className="h-full">
       <div className="flex flex-grow justify-evenly items-center my-4">
         <button className="bg-amber-500 hover:bg-amber-700 text-white text-xl font-bold py-2 px-4 rounded">
-          Scan
+          {PLACEHOLDER[4]}
         </button>
         <button onClick={openOptions}>Options</button>
         {count > 0 && (
@@ -53,7 +53,7 @@ function Home() {
         )}
       </div>
 
-      <CountSec />
+      <CountSec PLACEHOLDER={PLACEHOLDER}/>
     </div>
   );
 }

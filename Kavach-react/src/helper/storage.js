@@ -107,3 +107,16 @@ export async function getChosenColor() {
     return "#f59e0b";
   }
 }
+
+export async function setChosenLanguage(Language) {
+  await storage.local.set({ Language });
+}
+
+export async function getChosenLanguage() {
+  try {
+    const HighlightColor = await readLocalStorage("Language");
+    return HighlightColor;
+  } catch (e) {
+    return "ENGLISH";
+  }
+}

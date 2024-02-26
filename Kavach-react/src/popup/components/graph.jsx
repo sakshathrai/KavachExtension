@@ -5,13 +5,13 @@ import { Chart } from 'primereact/chart';
 
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 
-function Graph({ values }) {
+function Graph({ values,PLACEHOLDER }) {
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
 
   useEffect(() => {
     const data = {
-      labels: ['Urgency', 'Scarcity', 'Misdirection', 'Social Proof', 'Obstruction', 'Sneaking', 'Forced Action'],
+      labels: PLACEHOLDER.slice(6,13),
       datasets: [
         {
           data: values,

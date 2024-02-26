@@ -1,39 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { DROPDOWN_CONTENT, SUPPORTED_LANGAUGES } from '../constant/languages';
 
-function Lang() {
+function Lang({changeLanguage,lang}) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('English');
 
-  const toggleDropdown = () => {
+  useEffect(()=>{
+    console.log(lang);
+  },[])
+
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
     setDropdownOpen(!isDropdownOpen);
   };
 
-  const handleLanguageSelect = (language) => {
-    setSelectedLanguage(language);
+  function handleLanguageSelect(language) {
+    changeLanguage(language);
     setDropdownOpen(false);
-    // Add logic to handle language selection, e.g., set language in state
   };
 
+
   return (
-    <div className="dropdown dropdown-end">
+    <div className="relative">
       <div
         tabIndex="0"
         role="button"
         className="btn m-1"
         onClick={toggleDropdown}
       >
-        {selectedLanguage}
+        {lang}
       </div>
-      {isDropdownOpen && (
-        <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-          <li>
-            <a onClick={() => handleLanguageSelect('हिन्दी1')}>हिन्दी</a>
-          </li>
-          <li>
-            <a onClick={() => handleLanguageSelect('ಕನ್ನಡ')}>ಕನ್ನಡ</a>
-          </li>
+      {
+        isDropdownOpen && <ul className="absolute top-1 right-0 z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+          {
+          SUPPORTED_LANGAUGES.map((language,i)=>{
+            return (<li onClick={()=>{
+              handleLanguageSelect(language);
+            }
+            }>
+              <span>{DROPDOWN_CONTENT[i]}</span>
+            </li>
+            )
+          })
+          }
         </ul>
-      )}
+      }
     </div>
   );
 }

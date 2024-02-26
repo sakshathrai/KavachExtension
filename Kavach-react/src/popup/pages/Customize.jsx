@@ -8,17 +8,8 @@ import {
 } from "../../helper/storage";
 import { ChromePicker } from "react-color";
 
-const Customize = () => {
-  const [DARK_PATTERNS, setDARK_PATTERNS] = useState([
-    "Urgency",
-    "Not Dark Pattern",
-    "Scarcity",
-    "Misdirection",
-    "Social Proof",
-    "Obstruction",
-    "Sneaking",
-    "Forced Action",
-  ]);
+const Customize = ({PLACEHOLDER}) => {
+  const [DARK_PATTERNS, setDARK_PATTERNS] = useState(PLACEHOLDER.slice(6,13));
 
   const [patternState, setPatternState] = useState({
     0: true,

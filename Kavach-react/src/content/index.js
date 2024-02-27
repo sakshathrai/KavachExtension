@@ -205,7 +205,7 @@ async function handleModelResponse(
   const reportIssue = document.createElement("div");
   reportIssue.textContent = "Report issue";
 
-  const reportForm = document.createElement("div");
+  const reportForm = document.createElement("form");
   const reportFormContent = document.createElement("div");
 
   const feedbackSection = document.createElement("div");
@@ -226,22 +226,26 @@ async function handleModelResponse(
   inputSection.classList.add("inputSection");
 
   const feedbackTextarea = document.createElement("textarea");
+  feedbackTextarea.setAttribute("name", "feedbackText");
   feedbackTextarea.classList.add("feedbackTextarea");
   feedbackTextarea.id = `feedBackDpText-${type}-${_id}`;
   const harmfulCheckbox = document.createElement("input");
   harmfulCheckbox.setAttribute("type", "checkbox");
+  harmfulCheckbox.setAttribute("name", "harmfulUnsafe");
   const harmfulLabel = document.createElement("label");
   harmfulLabel.textContent = "This is harmful / unsafe";
   harmfulLabel.appendChild(harmfulCheckbox);
 
   const notTrueCheckbox = document.createElement("input");
   notTrueCheckbox.setAttribute("type", "checkbox");
+  notTrueCheckbox.setAttribute("name", "notTrue");
   const notTrueLabel = document.createElement("label");
   notTrueLabel.textContent = "This isn't true";
   notTrueLabel.appendChild(notTrueCheckbox);
 
   const notHelpfulCheckbox = document.createElement("input");
   notHelpfulCheckbox.setAttribute("type", "checkbox");
+  notHelpfulCheckbox.setAttribute("name", "notHelpful");
   const notHelpfulLabel = document.createElement("label");
   notHelpfulLabel.textContent = "This isn't helpful";
   notHelpfulLabel.appendChild(notHelpfulCheckbox);
@@ -257,6 +261,7 @@ async function handleModelResponse(
   submitSection.classList.add("submitSection");
 
   const submitButton = document.createElement("button");
+  submitButton.setAttribute("type", "submit");
   submitButton.classList.add("submitButton");
   submitButton.textContent = "Submit form";
 
@@ -284,6 +289,9 @@ async function handleModelResponse(
   closeButton.addEventListener("click", hideForm);
 
   async function handelFormSUbmit(e) {
+    // const formData = new FormData(e.target);
+    // console.log(formData);
+    e.preventDefault();
     try {
       const res = await fetch("http://localhost:3000/api/feedback", {
         method: "POST",
@@ -307,7 +315,7 @@ async function handleModelResponse(
       hideForm(e);
     }
   }
-  submitButton.addEventListener("click", handelFormSUbmit);
+  reportForm.addEventListener("submit", handelFormSUbmit);
 
   reportIssue.addEventListener("click", hideForm);
 

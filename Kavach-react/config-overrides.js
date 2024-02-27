@@ -6,6 +6,7 @@ const overrideEntry = (config) => {
     background: "./src/background",
     content: "./src/content",
     option: "./src/option",
+    price_content: "./src/price_content",
   };
 
   return config;

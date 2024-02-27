@@ -16,11 +16,21 @@
     {
       "matches": ["<all_urls>"],
       "js": ["./static/js/content.js"]
+    },
+    {
+      "matches": ["https://www.amazon.in/*", "https://www.flipkart.com/*"],
+      "js": ["./static/js/price_content.js"]
     }
   ],
   "action": {
     "default_popup": "index.html"
   },
   "options_page": "options.html",
-  "permissions": ["storage", "tabs", "activeTab", "webNavigation"]
+  "permissions": ["storage", "tabs", "activeTab", "webNavigation"],
+  "host_permissions": [
+    "https://*.amazon.in/*",
+    "https://*.flipkart.com/*",
+    "https://pricehistory.app/*",
+    "https://www.google-analytics.com/*"
+  ]
 }

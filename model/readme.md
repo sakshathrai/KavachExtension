@@ -35,5 +35,4 @@ uvicorn api:app --reload
 To view a working demo, please visit the [DEMO VIDEO](https://drive.google.com/file/d/1C3ite1ccHcss9Qbj1SWMIIuTqAshWfjU/view?usp=drive_link).
 
 
-[![Watch the video](https://i.stack.imgur.com/Vp2cE.png)](https://youtu.be/vt5fpE0bzSY)
 
